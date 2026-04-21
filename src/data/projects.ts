@@ -8,7 +8,7 @@ export const categories: { id: Category; label: string; icon: string }[] = [
 ];
 
 export const subCategories: { id: string; label: string }[] = [
-  { id: "en-vedette", label: "En vedette" },
+  { id: "en-vedette", label: "Publié" },
   { id: "en-cours", label: "En cours" },
   { id: "a-venir", label: "À venir" },
 ];
@@ -16,7 +16,40 @@ export const subCategories: { id: string; label: string }[] = [
 export const projects: Project[] = [
   {
     id: "app-academic",
-    title: "Application Academic",
+    title: "Ma-bibliothèque",
+    subtitle:
+      "La Bibliotjèque numérique de l'Université Polytechnique de Bingerville",
+    category: "informatique",
+    subCategory: "en-vedette",
+    thumbnail:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&q=80",
+    ],
+    description: `Nous avons réalisé la bibliothèque numérique de l’Université Polytechnique de Bingerville (UPB), une plateforme conçue pour moderniser l’accès aux ressources académiques. Ce projet permet de centraliser et d’organiser les documents universitaires tels que les livres, cours, mémoires et articles scientifiques, afin de faciliter leur consultation par les étudiants et les enseignants. Grâce à une interface simple et intuitive, les utilisateurs peuvent effectuer des recherches rapides et accéder efficacement aux contenus dont ils ont besoin. Cette solution contribue à améliorer la gestion documentaire de l’université et à soutenir la transition vers un environnement académique plus numérique et accessible.`,
+    technologies: [
+      { name: "Figma", icon: "🎨" },
+      { name: "React", icon: "⚛️" },
+      { name: "Supabase", icon: "🔥" },
+    ],
+    highlights: [
+      "Desktop, Mobile",
+      "Relation Ecole Etudiant",
+      "Digitalisation Campus",
+    ],
+    status: "en-vedette",
+    author: "GAMA LABS",
+    authorLogo: "",
+    links: [{ label: "Links", url: "https://upbstudents-labibliotheque.com/" }],
+    isPrivate: false,
+    createdAt: "2025",
+  },
+
+  {
+    id: "app-academic",
+    title: "Mabibliothèque",
     subtitle: "Pour la gestion des écoles et universités",
     category: "informatique",
     subCategory: "en-vedette",
@@ -37,7 +70,6 @@ export const projects: Project[] = [
     highlights: [
       "Desktop, Mobile",
       "Relation Ecole Etudiant",
-      "Résultats Numérique",
       "Digitalisation Campus",
     ],
     status: "en-vedette",
@@ -47,6 +79,7 @@ export const projects: Project[] = [
     isPrivate: true,
     createdAt: "2024-01-15",
   },
+
   {
     id: "fitline-app",
     title: "Fitline Fitness",

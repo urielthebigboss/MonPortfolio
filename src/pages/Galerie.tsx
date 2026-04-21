@@ -24,151 +24,151 @@ interface PortfolioItem {
 const ITEMS: PortfolioItem[] = [
   {
     id: 1,
-    title: "Neo Interface",
-    category: "UI Design",
+    title: "CDCI-CAPITAL",
+    category: "",
     color: "#6366f1",
     image:
-      "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776780399/WhatsApp_Image_2026-04-21_at_16.03.49_1_rvd2sc.jpg",
     height: 320,
     year: "2024",
   },
   {
     id: 2,
-    title: "Abstract Flow",
-    category: "3D Motion",
+    title: "Gama Labs",
+    category: "",
     color: "#ec4899",
     image:
-      "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776780399/WhatsApp_Image_2026-04-21_at_16.03.50_wleypp.jpg",
     height: 420,
     year: "2024",
   },
   {
     id: 3,
-    title: "Minimal Space",
-    category: "Branding",
+    title: "Recherche de Stage",
+    category: "",
     color: "#f59e0b",
     image:
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776780399/WhatsApp_Image_2026-04-21_at_16.03.50_1_cr3lc4.jpg",
     height: 280,
     year: "2023",
   },
   {
     id: 4,
-    title: "Future Tech",
-    category: "UX Research",
+    title: "En classe",
+    category: "",
     color: "#10b981",
     image:
-      "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/c_fill,w_1000,h_1000/v1776780398/WhatsApp_Image_2026-04-21_at_16.03.50_3_n9ym0g.jpg",
     height: 380,
     year: "2024",
   },
   {
     id: 5,
-    title: "Digital Agency",
-    category: "UI Design",
+    title: "Paix et Joie",
+    category: "",
     color: "#6366f1",
     image:
-      "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776780398/WhatsApp_Image_2026-04-21_at_16.03.51_koirzd.jpg",
     height: 340,
     year: "2023",
   },
   {
     id: 6,
-    title: "Urban Geometry",
-    category: "Branding",
+    title: "En classe",
+    category: "",
     color: "#f59e0b",
     image:
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776780398/WhatsApp_Image_2026-04-21_at_16.03.51_2_ga1wvi.jpg",
     height: 460,
     year: "2024",
   },
   {
     id: 7,
-    title: "Mobile XP",
-    category: "UX Design",
+    title: "Avec mes devanciers",
+    category: "",
     color: "#10b981",
     image:
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776780398/WhatsApp_Image_2026-04-21_at_16.03.51_1_ehjuzc.jpg",
     height: 360,
     year: "2023",
   },
   {
     id: 8,
-    title: "Particle Art",
-    category: "3D Motion",
+    title: "Proactive Suisse",
+    category: "",
     color: "#ec4899",
     image:
-      "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776780398/WhatsApp_Image_2026-04-21_at_16.03.51_4_glzvrp.jpg",
     height: 400,
     year: "2024",
   },
   {
     id: 9,
-    title: "Dashboard Pro",
-    category: "UI Design",
+    title: "Sur ma planète",
+    category: "",
     color: "#6366f1",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776779661/IMG_2038_wfyfmz.jpg",
     height: 300,
     year: "2024",
   },
   {
     id: 10,
-    title: "Typography Haus",
-    category: "Branding",
+    title: "3D art",
+    category: "",
     color: "#f59e0b",
     image:
-      "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776781409/WhatsApp_Image_2026-04-21_at_16.22.52_hgwbaf.jpg",
     height: 440,
     year: "2023",
   },
   {
     id: 11,
-    title: "Neon Nights",
-    category: "3D Motion",
+    title: "SYSDBA",
+    category: "",
     color: "#ec4899",
     image:
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776779658/IMG_0455_xabsh9.jpg",
     height: 380,
     year: "2024",
   },
   {
     id: 12,
-    title: "Clean UI",
-    category: "UI Design",
+    title: "Genie UPB",
+    category: "",
     color: "#6366f1",
     image:
-      "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776779658/IMG_0962_rzhyfo.jpg",
     height: 320,
     year: "2024",
   },
   {
     id: 13,
-    title: "Brand Identity",
-    category: "Branding",
+    title: "Fin Compétition",
+    category: "",
     color: "#f59e0b",
     image:
-      "https://images.unsplash.com/photo-1600607686527-6fb886090705?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776779656/IMG_0961_fil3ma.jpg",
     height: 400,
     year: "2023",
   },
   {
     id: 14,
-    title: "Motion Graphics",
-    category: "3D Motion",
+    title: "En famille",
+    category: "",
     color: "#ec4899",
     image:
-      "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776779654/IMG_0764_dxajdc.jpg",
     height: 360,
     year: "2024",
   },
   {
     id: 15,
-    title: "App Design",
-    category: "UX Design",
+    title: "Banco",
+    category: "",
     color: "#10b981",
     image:
-      "https://images.unsplash.com/photo-1512486130939-2c4f79935e1f?w=600&q=80",
+      "https://res.cloudinary.com/dppzzrley/image/upload/v1776779654/IMG_3002_icw1uc.jpg",
     height: 420,
     year: "2024",
   },
@@ -394,6 +394,18 @@ export default function PortfolioGallery() {
   const [lightbox, setLightbox] = useState<PortfolioItem | null>(null);
   const [scrollPct, setScrollPct] = useState(0);
   const { play } = useAudio();
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    if (audio) {
+      audio.play().catch((err: unknown) => {
+        console.log("Autoplay bloqué par le navigateur :", err);
+      });
+    }
+  }, []);
 
   /* Pinterest Masonry: 5 colonnes desktop, 3 tablet, 2 mobile */
   const [, setCols] = useState(4);
@@ -690,6 +702,9 @@ export default function PortfolioGallery() {
 
   return (
     <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
+      <div>
+        <audio ref={audioRef} src="public/music.mp3" loop />
+      </div>
       <Navbar />
       <Lightbox item={lightbox} onClose={closeLightbox} />
 
