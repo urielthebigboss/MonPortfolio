@@ -1,0 +1,68 @@
+/* ════════════════════════════════════════════════════════════
+   DESIGN SYSTEM — source unique de la direction artistique
+   Couleurs au format "R G B" pour permettre l'opacité Tailwind
+   (ex. bg-ink/60). Ajustez ici, tout le site suit.
+   ════════════════════════════════════════════════════════════ */
+:root {
+  /* — Couleurs — */
+  --c-paper: 255 255 255; /* fond unique du site : le blanc du hero */
+  --c-paper-2: 255 255 255; /* surfaces surélevées */
+  --c-ink: 11 11 12; /* noir profond */
+  --c-ink-2: 26 26 29; /* surfaces sombres */
+  --c-mute: 88 91 102; /* texte secondaire (contraste AA sur paper) */
+  --c-mute-2: 150 150 156; /* métadonnées sur fond sombre */
+  --c-signal: 41 82 255; /* bleu technologique — l'accent principal */
+  --c-violet: 139 92 246; /* compagnons du bleu dans les dégradés */
+  --c-cyan: 34 184 230;
+
+  /* Teintes par domaine (halos, icônes) */
+  --h-software: 41 82 255;
+  --h-data: 139 92 246;
+  --h-iot: 22 178 110;
+  --h-creative: 244 80 120;
+  --h-spatial: 14 165 233;
+  --c-signal-soft: 221 227 255;
+  --c-warm: 242 107 29; /* accent chaud, héritage du site précédent : rare */
+
+  /* — Typographie — */
+  --font-sans: "Geist Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+
+  --fs-display: clamp(3.4rem, 11.5vw, 12.5rem); /* grandes déclarations */
+  --fs-h1: clamp(2.6rem, 7vw, 7rem); /* titres de chapitre */
+  --fs-h2: clamp(2rem, 4.4vw, 4.25rem); /* titres de projet */
+  --fs-h3: clamp(1.35rem, 2vw, 1.85rem);
+  --fs-lead: clamp(1.4rem, 2.9vw, 2.75rem); /* texte éditorial large */
+  --fs-body: clamp(1rem, 1.05vw, 1.1rem);
+  --fs-meta: 0.8125rem; /* dates, labels mono */
+
+  /* — Espacements & grilles — */
+  --gutter: clamp(16px, 4vw, 56px);
+  --section-y: clamp(44px, 6vw, 104px); /* marge haut/bas de chaque section */
+  --content-max: 1440px;
+
+  /* — Rayons — */
+  --radius-s: 12px;
+  --radius-m: 22px;
+  --radius-l: 34px;
+
+  /* — Élévations — */
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.05), 0 8px 24px rgb(0 0 0 / 0.06);
+  --shadow-2: 0 2px 6px rgb(0 0 0 / 0.06), 0 30px 80px rgb(0 0 0 / 0.14);
+
+  /* — Mouvement — */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --dur-fast: 180ms;
+  --dur-base: 450ms;
+  --dur-slow: 900ms;
+
+  /* — Navigation mobile (barre iOS) — */
+  --tabbar-h: 64px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tabbar-space: calc(var(--tabbar-h) + max(12px, var(--safe-bottom)) + 12px);
+
+  /* Points de rupture (référence — utilisés via Tailwind sm/md/lg/xl) :
+     sm 640 · md 768 · lg 1024 · xl 1280 · 2xl 1536 */
+}
