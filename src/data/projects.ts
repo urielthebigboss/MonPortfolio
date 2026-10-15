@@ -55,7 +55,7 @@ En combinant l'intelligence artificielle et la technologie des drones, le projet
     category: "data",
     year: null,
     role: null,
-    context: "Gama Labs",
+    context: "",
     // À compléter : technologies réellement utilisées.
     technologies: [],
     cover: {
