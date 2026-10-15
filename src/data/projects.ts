@@ -22,7 +22,7 @@ export const projects: Project[] = [
     title: "Ma Bibliothèque",
     pitch:
       "La bibliothèque numérique de l'Université Polytechnique de Bingerville.",
-    description: `Une plateforme conçue pour moderniser l'accès aux ressources académiques de l'UPB. Elle centralise et organise les documents universitaires — livres, cours, mémoires et articles scientifiques — pour en faciliter la consultation par les étudiants et les enseignants.
+    description: `Une plateforme conçue pour moderniser l'accès aux ressources académiques de l'UPB. Elle centralise et organise les documents universitaires, livres, cours, mémoires et articles scientifiques pour en faciliter la consultation par les étudiants et les enseignants.
 
 Grâce à une interface simple, les utilisateurs effectuent des recherches rapides et accèdent directement aux contenus dont ils ont besoin. La solution améliore la gestion documentaire de l'université et accompagne sa transition vers un environnement académique plus numérique et plus accessible.`,
     category: "software",

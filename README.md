@@ -20,8 +20,11 @@ npm run lint
 | Changer e-mail, WhatsApp, réseaux, CV     | `src/config/site.ts`                      |
 | Ajouter / modifier une réalisation        | `src/data/projects.ts`                    |
 | Déposer les images d'un projet            | `src/assets/projects/<id-du-projet>/`     |
+| Créations design / motion / 3D (Studio)   | `src/data/studio.ts` + `src/assets/studio/` |
 | Compléter le parcours (dates, Master…)    | `src/data/journey.ts`                     |
 | Ajuster domaines, outils, compétences     | `src/data/domains.ts`                     |
+| Panneaux « Compétences » (défilement)     | `src/data/skills.ts`                      |
+| Logos des technologies                    | `src/lib/techLogos.ts`                    |
 | Gérer les photos « Coulisses »            | `src/data/gallery.ts`                     |
 | Renommer / réordonner les chapitres       | `src/data/chapters.ts`                    |
 | Couleurs, typo, espacements, courbes      | `src/styles/tokens.css`                   |

@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { House, UserRound, Layers, FolderOpen, Route, Images, Send } from "lucide-react";
+import { House, UserRound, Layers, FolderOpen, Clapperboard, Route, Images, Send } from "lucide-react";
 
 /* ════════════════════════════════════════════════════════════
    CHAPITRES — la « timeline » du film
@@ -12,6 +12,7 @@ export type ChapterId =
   | "profil"
   | "domaines"
   | "realisations"
+  | "studio"
   | "parcours"
   | "coulisses"
   | "contact";
@@ -66,10 +67,18 @@ export const chapters: Chapter[] = [
     tab: "projets",
     icon: FolderOpen,
     legacyPaths: ["/projets"],
+  },  {
+    id: "studio",
+    number: "04",
+    title: "Studio",
+    logline: "Design, motion & 3D",
+    tab: "projets",
+    icon: Clapperboard,
   },
+
   {
     id: "parcours",
-    number: "04",
+    number: "05",
     title: "Parcours",
     logline: "Formation, entreprises, responsabilités",
     tab: "parcours",
@@ -77,7 +86,7 @@ export const chapters: Chapter[] = [
   },
   {
     id: "coulisses",
-    number: "05",
+    number: "06",
     title: "Coulisses",
     logline: "Équipes, compétitions, terrain",
     tab: "parcours",
@@ -86,7 +95,7 @@ export const chapters: Chapter[] = [
   },
   {
     id: "contact",
-    number: "06",
+    number: "07",
     title: "Contact",
     logline: "Écrivons la suite",
     tab: "contact",

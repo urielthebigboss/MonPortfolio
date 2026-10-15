@@ -1,4 +1,8 @@
-import type { JourneyEntry, JourneyKind, JourneyStatus } from "../types/content";
+import type {
+  JourneyEntry,
+  JourneyKind,
+  JourneyStatus,
+} from "../types/content";
 
 /* ════════════════════════════════════════════════════════════
    PARCOURS — formation, expériences, responsabilités
@@ -15,42 +19,39 @@ export const journey: JourneyEntry[] = [
   {
     id: "master-data-ia",
     kind: "formation",
-    title: "Master 1 — Data & Intelligence Artificielle",
-    organization: null, // Établissement à compléter
-    start: null, // ex. "sept. 2026"
+    title: "Master 1 Data & Intelligence Artificielle, bac+4",
+    organization: "Université Polytechnique de Bingerville", // Établissement à compléter
+    start: "oct. 2026", // ex. "sept. 2026"
     end: null,
-    status: "a-venir", // "a-venir" | "en-cours" | "termine"
+    status: "en-cours", // "a-venir" | "en-cours" | "termine"
     summary:
-      "La prochaine étape : approfondir la science des données et l'intelligence artificielle, dans le prolongement de MIAGE et du génie logiciel.",
+      "La prochaine étape : approfondir la science des données et l'intelligence artificielle, dans la Data-IA",
     details: [], // Spécialisation, cours, projets…
-    todo: ["Établissement", "Date de début", "Statut", "Spécialisation"],
   },
   {
     id: "upb-pole-tech",
     kind: "engagement",
     title: "Co-responsable du Pôle Technologie et Innovation",
-    organization: "Université Polytechnique de Bingerville — 6ᵉ génération",
-    start: null,
+    organization: "Université Polytechnique de Bingerville 6ᵉ génération",
+    start: "Mai. 2025",
     end: null,
-    status: null,
+    status: "en-cours",
     summary:
       "Coordination des initiatives technologiques et d'innovation portées par la sixième génération de l'UPB.",
     details: [],
-    todo: ["Période", "Actions menées"],
   },
   {
     id: "spt2a",
     kind: "experience",
-    title: "Informaticien",
+    title: "Développeur logiciel",
     organization:
-      "SPT2A — Société de Production et de Transformation Animale et Agricole",
-    start: null,
+      "SPT2A Société de Production et de Transformation Animale et Agricole",
+    start: "Avril. 2025",
     end: null,
     status: null,
     summary:
-      "Informatique au sein d'une entreprise de production et de transformation agricole : là où le logiciel rencontre le terrain.",
+      "Informatique au sein d'une entreprise de production et de transformation agricole",
     details: [],
-    todo: ["Période", "Missions principales"],
   },
   {
     id: "sys",
@@ -61,9 +62,8 @@ export const journey: JourneyEntry[] = [
     end: null,
     status: null,
     summary:
-      "Mon activité technologique : conception et réalisation de solutions numériques sur mesure.",
+      "Environnement de réalisation de projets technologiques",
     details: [],
-    todo: ["Date de création", "Services proposés", "Lien éventuel"],
   },
   {
     id: "gama-labs",
@@ -74,22 +74,25 @@ export const journey: JourneyEntry[] = [
     end: null,
     status: null,
     summary:
-      "Initiative technologique dédiée à la conception de solutions numériques — dont la bibliothèque numérique de l'UPB.",
+      "Startup technologique dédiée à la conception de solutions numériques.",
     details: ["Rôle dans l'équipe : UI/UX et backend"],
-    todo: ["Statut actuel"],
   },
   {
     id: "miage",
     kind: "formation",
-    title: "MIAGE — Méthodes Informatiques Appliquées à la Gestion des Entreprises",
+    title:
+      "MIAGE Méthodes Informatiques Appliquées à la Gestion des Entreprises",
     organization: "Université Polytechnique de Bingerville",
     start: "2023",
-    end: null,
+    end: "2026",
     status: null,
     summary:
-      "Une formation qui relie informatique et gestion, avec une orientation en génie logiciel.",
-    details: ["Orientation génie logiciel", "Développement web et backend", "Gestion de projet"],
-    todo: ["Diplôme visé / obtenu", "Année de fin"],
+      "Licence en informatique et gestion, avec une orientation en génie logiciel.",
+    details: [
+      "Orientation génie logiciel",
+      "Développement web et backend",
+      "Gestion de projet",
+    ],
   },
   {
     id: "bac",

@@ -9,7 +9,7 @@ import { ease, spring } from "../../lib/motion";
 /** Un lien par chapitre ; l'ouverture s'affiche « Accueil ». */
 const LINKS = chapters.map((c) => ({ ...c, label: c.id === "ouverture" ? "Accueil" : c.title }));
 /** Masqués sur tablette pour garder une barre lisible. */
-const DESKTOP_ONLY: ChapterId[] = ["coulisses"];
+const DESKTOP_ONLY: ChapterId[] = ["coulisses", "studio"];
 
 /**
  * Barre de navigation fixe en haut, desktop & tablette uniquement
@@ -41,7 +41,7 @@ export function TopBar() {
               {LINKS.map((c) => {
                 const on = active === c.id;
                 return (
-                  <li key={c.id} className={DESKTOP_ONLY.includes(c.id) ? "hidden lg:block" : undefined}>
+                  <li key={c.id} className={DESKTOP_ONLY.includes(c.id) ? "hidden xl:block" : undefined}>
                     <a
                       {...filmLink(c.id)}
                       aria-current={on ? "location" : undefined}

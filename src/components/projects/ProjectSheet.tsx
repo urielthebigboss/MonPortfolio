@@ -65,7 +65,7 @@ export function ProjectSheet({
         transition={{ duration: 0.7, ease: ease.inOut }}
       >
         <div className="sticky top-0 z-10 flex items-center justify-between bg-paper/90 px-[var(--gutter)] py-4 backdrop-blur">
-          <span className="meta text-mute">Réalisation — {domain?.short}</span>
+          <span className="meta text-mute">Réalisation {domain?.short}</span>
           <button
             type="button"
             onClick={onClose}

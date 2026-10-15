@@ -79,7 +79,7 @@ function Data({ m }: { m: boolean }) {
   );
 }
 
-/** IoT & AgriTech : rangs de culture, capteurs et passerelle. */
+/** IoT : capteurs connectés qui remontent vers une passerelle. */
 function Iot({ m }: { m: boolean }) {
   const sensors = [
     [90, 230],
@@ -90,14 +90,12 @@ function Iot({ m }: { m: boolean }) {
   ];
   return (
     <g>
-      {[0, 1, 2, 3, 4, 5].map((i) => (
-        <motion.path
-          key={i}
-          d={`M ${20 + i * 18} ${300 - i * 2} Q 200 ${150 + i * 22} ${380 - i * 18} ${300 - i * 2}`}
-          fill="none"
-          stroke={faint}
-          {...draw(m, i * 0.06, 1)}
-        />
+      {/* Trame de réseau */}
+      {[150, 190, 230, 270].map((y, i) => (
+        <motion.path key={`h${y}`} d={`M 40 ${y} H 380`} fill="none" stroke={faint} {...draw(m, i * 0.06, 0.9)} />
+      ))}
+      {[60, 140, 220, 300].map((x, i) => (
+        <motion.path key={`v${x}`} d={`M ${x} 130 V 290`} fill="none" stroke={faint} {...draw(m, 0.2 + i * 0.06, 0.9)} />
       ))}
       <rect x="300" y="60" width="44" height="44" rx="10" fill="rgb(var(--c-ink-2))" stroke={stroke} />
       <path d="M 314 82 h 16 M 322 74 v 16" stroke={signal} strokeWidth="2" />

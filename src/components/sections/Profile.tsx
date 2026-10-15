@@ -3,17 +3,25 @@ import { ArrowRight } from "lucide-react";
 import { Scene, ChapterHeading } from "../film/Scene";
 import { ScrubText } from "../ui/KineticText";
 import { journey } from "../../data/journey";
-import { transversal } from "../../data/domains";
 import { goTo } from "../../lib/film";
 import { useHoverSound, useMotionOK } from "../../lib/hooks";
 import { ease } from "../../lib/motion";
+import { SkillsReel } from "../profile/SkillsGraph";
 
 /** Rôles actuels, tirés du parcours (une seule source de vérité). */
 const ROLES = ["gama-labs", "sys", "spt2a", "upb-pole-tech"]
   .map((id) => journey.find((j) => j.id === id))
   .filter((j): j is NonNullable<typeof j> => !!j);
 
-function RoleRow({ title, org, index }: { title: string; org: string; index: number }) {
+function RoleRow({
+  title,
+  org,
+  index,
+}: {
+  title: string;
+  org: string;
+  index: number;
+}) {
   const hover = useHoverSound("tick");
   const motionOK = useMotionOK();
   return (
@@ -30,7 +38,9 @@ function RoleRow({ title, org, index }: { title: string; org: string; index: num
         {...hover}
       >
         <span>
-          <span className="h3 block transition-colors duration-300 group-hover:text-signal">{title}</span>
+          <span className="h3 block transition-colors duration-300 group-hover:text-signal">
+            {title}
+          </span>
           <span className="mt-1 block text-[0.95rem] text-mute">{org}</span>
         </span>
         <ArrowRight
@@ -59,45 +69,28 @@ export function Profile() {
         />
 
         <ScrubText
-          className="lead mt-8 max-w-[24ch] md:mt-20 lg:ml-[16.66%]"
+          className="lead mt-8 max-w-[24ch] md:mt-20 lg:ml-[16.66%] [word-spacing:2px] leading-relaxed"
           highlight={["capteur", "décision", "3D"]}
-          text="Formé en MIAGE et orienté génie logiciel, je travaille là où les disciplines se rencontrent : une application qui dialogue avec un capteur, une donnée qui devient décision, une idée qui prend forme en 3D. Je ne choisis pas entre le code et le design — je les fais travailler ensemble."
+          text="Formé en MIAGE et orienté génie logiciel, je travaille là où les disciplines se rencontrent : une application connectée, une donnée qui devient décision, une idée qui prend forme en 3D."
         />
 
-        <div className="mt-12 grid gap-10 md:mt-24 md:gap-14 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-5">
-            <p className="meta mb-6 text-mute">Aujourd'hui</p>
-            <ul className="border-b border-ink/15">
-              {ROLES.map((r, i) => (
-                <RoleRow key={r.id} title={r.title} org={r.organization ?? ""} index={i} />
-              ))}
-            </ul>
-          </div>
-
-          <div className="lg:col-span-6 lg:col-start-7">
-            <p className="meta mb-6 text-mute">Compétences transverses</p>
-            <ul className="flex flex-wrap gap-2">
-              {transversal.skills.map((s) => (
-                <li key={s} className="glass rounded-full px-4 py-2 text-[0.95rem]">
-                  {s}
-                </li>
-              ))}
-            </ul>
-            <p className="meta mb-4 mt-8 text-mute md:mb-6 md:mt-10">Langues</p>
-            <ul className="flex flex-wrap gap-2">
-              <li className="glass rounded-full px-4 py-2 text-[0.95rem]">
-                Français
-              </li>
-              {transversal.languages.map((l) => (
-                <li key={l.label} className="glass rounded-full px-4 py-2 text-[0.95rem]">
-                  {l.label} <span className="meta ml-1 text-mute">{l.level}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className="mt-12 md:mt-24">
+          <p className="meta mb-6 text-mute">Aujourd'hui</p>
+          <ul className="grid border-b border-ink/15 md:grid-cols-2 md:gap-x-10">
+            {ROLES.map((r, i) => (
+              <RoleRow
+                key={r.id}
+                title={r.title}
+                org={r.organization ?? ""}
+                index={i}
+              />
+            ))}
+          </ul>
         </div>
-
       </div>
+
+      {/* Compétences : défilement horizontal piloté par le scroll */}
+      <SkillsReel />
     </Scene>
   );
 }

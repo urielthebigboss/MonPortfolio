@@ -81,8 +81,7 @@ export function Domains() {
           }
         >
           <p className="mt-5 max-w-[46ch] text-lg text-mute md:mt-8">
-            Du capteur à l'interface, de la donnée à la décision, du plan à la 3D :
-            chaque discipline nourrit la suivante. Sélectionnez-en une.
+            Chaque discipline nourrit la suivante. Sélectionnez-en une.
           </p>
         </ChapterHeading>
 

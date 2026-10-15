@@ -54,21 +54,21 @@ export const domains: Domain[] = [
     ],
     tools: ["Python", "SQL", "Power BI", "Machine Learning"],
     stance:
-      "Discipline en cours d'approfondissement — prochaine étape : Master 1 Data & IA.",
+      "",
   },
   {
     id: "iot",
     number: "03",
-    title: "IoT & AgriTech",
-    short: "IoT & AgriTech",
-    statement: "Relier un capteur dans un champ à une décision sur un écran.",
+    title: "IoT",
+    short: "IoT",
+    statement: "Relier un capteur à une décision sur un écran.",
     description:
-      "Systèmes connectés appliqués à l'agriculture : collecte de données de capteurs, communication entre équipements et applications, réflexion autour de l'irrigation intelligente et du suivi des cultures.",
+      "Systèmes connectés : collecte de données de capteurs, communication entre équipements et applications, et remontée de l'information jusqu'à l'utilisateur.",
     capabilities: [
       "Conception de systèmes IoT",
       "Collecte et remontée de données capteurs",
       "Communication équipements ↔ applications",
-      "Irrigation intelligente, suivi des cultures",
+      "Intégration capteurs, réseau et logiciel",
     ],
     // À compléter : microcontrôleurs, capteurs, protocoles réellement utilisés.
     tools: [],
@@ -80,7 +80,7 @@ export const domains: Domain[] = [
     short: "Design & Motion",
     statement: "Donner une forme claire à ce qui est complexe.",
     description:
-      "Direction artistique, design d'interface et motion design : je conçois des expériences visuelles où l'esthétique sert la compréhension — ce site en est un exemple.",
+      "Direction artistique, design d'interface et motion design : je conçois des expériences visuelles où l'esthétique sert la compréhension ce site en est un exemple.",
     capabilities: [
       "Design d'interface (UI/UX)",
       "Direction artistique et identité visuelle",

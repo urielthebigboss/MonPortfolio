@@ -17,9 +17,24 @@ import { TechList } from "../ui/TechList";
 
 /** Chaque réalisation reçoit une mise en page différente (rythme éditorial). */
 const LAYOUTS = [
-  { aspect: "aspect-[16/10]", frame: "lg:col-span-7", info: "lg:col-span-4 lg:col-start-9", flip: false },
-  { aspect: "aspect-[4/5]", frame: "lg:col-span-5 lg:col-start-8", info: "lg:col-span-5 lg:col-start-1 lg:row-start-1", flip: true },
-  { aspect: "aspect-square", frame: "lg:col-span-6", info: "lg:col-span-5 lg:col-start-8", flip: false },
+  {
+    aspect: "aspect-[16/10]",
+    frame: "lg:col-span-7",
+    info: "lg:col-span-4 lg:col-start-9",
+    flip: false,
+  },
+  {
+    aspect: "aspect-[4/5]",
+    frame: "lg:col-span-5 lg:col-start-8",
+    info: "lg:col-span-5 lg:col-start-1 lg:row-start-1",
+    flip: true,
+  },
+  {
+    aspect: "aspect-square",
+    frame: "lg:col-span-6",
+    info: "lg:col-span-5 lg:col-start-8",
+    flip: false,
+  },
 ];
 
 function ProjectEntry({
@@ -49,7 +64,11 @@ function ProjectEntry({
         className={`block rounded-m text-left ${layout.frame}`}
         aria-label={`Ouvrir le projet ${project.title}`}
       >
-        <ProjectFrame project={project} aspect={layout.aspect} large={index === 0} />
+        <ProjectFrame
+          project={project}
+          aspect={layout.aspect}
+          large={index === 0}
+        />
       </button>
 
       <motion.div
@@ -60,7 +79,9 @@ function ProjectEntry({
         transition={{ duration: 0.9, ease: ease.out }}
       >
         <div className="meta flex flex-wrap items-center gap-x-3 gap-y-2 text-mute">
-          <span className="tabular-nums text-ink">03.{String(index + 1).padStart(2, "0")}</span>
+          <span className="tabular-nums text-ink">
+            03.{String(index + 1).padStart(2, "0")}
+          </span>
           <span
             className={`rounded-full px-2.5 py-1 ${project.status === "publie" ? "bg-signal text-white" : "bg-ink/[0.07] text-ink"}`}
           >
@@ -99,13 +120,18 @@ export function Projects() {
   const [openId, setOpenId] = useState<string | null>(null);
 
   const categories = useMemo(
-    () => domains.filter((d) => publishedProjects.some((p) => p.category === d.id)),
+    () =>
+      domains.filter((d) => publishedProjects.some((p) => p.category === d.id)),
     [],
   );
-  const list = filter === "all" ? publishedProjects : publishedProjects.filter((p) => p.category === filter);
+  const list =
+    filter === "all"
+      ? publishedProjects
+      : publishedProjects.filter((p) => p.category === filter);
   const openIndex = list.findIndex((p) => p.id === openId);
   const open = openIndex >= 0 ? list[openIndex] : null;
-  const next = open && list.length > 1 ? list[(openIndex + 1) % list.length] : null;
+  const next =
+    open && list.length > 1 ? list[(openIndex + 1) % list.length] : null;
   const github = socials.find((s) => s.id === "github")?.url;
 
   const openProject = (id: string) => {
@@ -127,33 +153,44 @@ export function Projects() {
           />
           <p className="meta text-mute">
             {String(publishedProjects.length).padStart(2, "0")} réalisation
-            {publishedProjects.length > 1 ? "s" : ""} documentée{publishedProjects.length > 1 ? "s" : ""}
+            {publishedProjects.length > 1 ? "s" : ""} documentée
+            {publishedProjects.length > 1 ? "s" : ""}
           </p>
         </div>
 
         {categories.length > 1 && (
           <LayoutGroup id="project-filters">
-            <div role="group" aria-label="Filtrer par domaine" className="no-scrollbar -mx-[var(--gutter)] mt-8 flex gap-1 md:mt-12 overflow-x-auto px-[var(--gutter)]">
-              {[{ id: "all" as const, short: "Tout" }, ...categories].map((c) => {
-                const on = filter === c.id;
-                return (
-                  <button
-                    key={c.id}
-                    type="button"
-                    aria-pressed={on}
-                    onClick={() => {
-                      setFilter(c.id);
-                      sound.play("tick");
-                    }}
-                    className={`relative shrink-0 rounded-full px-4 py-2.5 text-[0.95rem] transition-colors ${on ? "text-paper" : "text-ink hover:bg-ink/[0.05]"}`}
-                  >
-                    {on && (
-                      <motion.span layoutId="filter-pill" className="absolute inset-0 rounded-full bg-ink" transition={spring.pill} />
-                    )}
-                    <span className="relative">{c.short}</span>
-                  </button>
-                );
-              })}
+            <div
+              role="group"
+              aria-label="Filtrer par domaine"
+              className="no-scrollbar -mx-[var(--gutter)] mt-8 flex gap-1 md:mt-12 overflow-x-auto px-[var(--gutter)]"
+            >
+              {[{ id: "all" as const, short: "Tout" }, ...categories].map(
+                (c) => {
+                  const on = filter === c.id;
+                  return (
+                    <button
+                      key={c.id}
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => {
+                        setFilter(c.id);
+                        sound.play("tick");
+                      }}
+                      className={`relative shrink-0 rounded-full px-4 py-2.5 text-[0.95rem] transition-colors ${on ? "text-paper" : "text-ink hover:bg-ink/[0.05]"}`}
+                    >
+                      {on && (
+                        <motion.span
+                          layoutId="filter-pill"
+                          className="absolute inset-0 rounded-full bg-ink"
+                          transition={spring.pill}
+                        />
+                      )}
+                      <span className="relative">{c.short}</span>
+                    </button>
+                  );
+                },
+              )}
             </div>
           </LayoutGroup>
         )}
@@ -161,7 +198,12 @@ export function Projects() {
         <motion.ul layout className="mt-10 space-y-16 md:mt-24 md:space-y-40">
           <AnimatePresence mode="popLayout" initial={false}>
             {list.map((p, i) => (
-              <ProjectEntry key={p.id} project={p} index={i} onOpen={() => openProject(p.id)} />
+              <ProjectEntry
+                key={p.id}
+                project={p}
+                index={i}
+                onOpen={() => openProject(p.id)}
+              />
             ))}
           </AnimatePresence>
         </motion.ul>
@@ -169,7 +211,8 @@ export function Projects() {
         {publishedProjects.length < 4 && (
           <div className="mt-16 grid gap-6 rounded-l bg-paper-2 p-6 ring-1 ring-ink/[0.06] md:mt-40 md:gap-8 md:grid-cols-12 md:p-12">
             <p className="h3 md:col-span-7">
-              D'autres réalisations — data, IoT, motion et 3D — sont en cours de documentation.
+              D'autres réalisations App, data, IoT, motion et 3D sont en cours
+              de documentation.
             </p>
             <div className="flex flex-wrap items-start gap-3 md:col-span-5 md:justify-end">
               {github && (
@@ -177,7 +220,9 @@ export function Projects() {
                   GitHub
                 </PillLink>
               )}
-              <PillButton onClick={() => void goTo("contact")}>En parler</PillButton>
+              <PillButton onClick={() => void goTo("contact")}>
+                En parler
+              </PillButton>
             </div>
           </div>
         )}

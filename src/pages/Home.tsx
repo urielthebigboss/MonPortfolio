@@ -5,6 +5,7 @@ import { Hero } from "../components/hero/Hero";
 import { Profile } from "../components/sections/Profile";
 import { Domains } from "../components/sections/Domains";
 import { Projects } from "../components/sections/Projects";
+import { Studio } from "../components/sections/Studio";
 import { Journey } from "../components/sections/Journey";
 import { Backstage } from "../components/sections/Backstage";
 import { Contact } from "../components/sections/Contact";
@@ -25,6 +26,7 @@ export default function Home() {
         <Profile />
         <Domains />
         <Projects />
+        <Studio />
         <Journey />
         <Backstage />
         <Contact />
