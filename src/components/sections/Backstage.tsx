@@ -11,13 +11,13 @@ import {
   type MotionStyle,
   type MotionValue,
 } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
+
 import { Scene } from "../film/Scene";
 import { PillButton } from "../ui/Pill";
 import { Lightbox } from "../projects/Lightbox";
 import { gallery, cdn } from "../../data/gallery";
 import type { GalleryItem } from "../../types/content";
-import { goTo } from "../../lib/film";
+
 import { sound } from "../../lib/sound";
 import { useIsDesktop, useMotionOK } from "../../lib/hooks";
 import { ease } from "../../lib/motion";
@@ -250,26 +250,18 @@ export function Backstage() {
                 Ce qui ne tient pas dans un CV.
               </h2>
               <p className="mt-5 max-w-[46ch] text-[1.02rem] font-medium leading-snug text-ink/80">
-                Équipes, salles de cours, compétitions, sorties terrain : les moments où
-                les projets <span className="accent">prennent vie.</span> Cliquez sur une image
-                pour la voir en grand.
+                Une &quipes, des compétitions, des sorties terrain : les moments où
+                les projets <span className="accent">prennent vie.</span>
               </p>
               <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
                 <PillButton
                   onClick={() => open(gallery[0], true)}
-                  icon={<Play size={16} fill="currentColor" />}
+                  
                   className="!min-h-[44px] !px-5 text-[0.9rem]"
                 >
-                  Voir le film ({gallery.length} images)
+                  Voir les images
                 </PillButton>
-                <button
-                  type="button"
-                  onClick={() => void goTo("contact")}
-                  className="group inline-flex min-h-[44px] items-center gap-2 text-[0.9rem] font-medium"
-                >
-                  Écrire un message
-                  <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden />
-                </button>
+                
               </div>
             </motion.div>
           </div>

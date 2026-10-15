@@ -194,8 +194,8 @@ export function Journey() {
           }
         >
           <p className="mt-5 max-w-[48ch] text-lg text-mute md:mt-8">
-            Formation, entreprises et responsabilités : un parcours qui avance sur
-            plusieurs fronts à la fois — avec, en ligne de mire, la data et l'IA.
+            Formation, entreprises et responsabilités, un parcours qui avance sur
+            plusieurs fronts à la fois.
           </p>
         </ChapterHeading>
 

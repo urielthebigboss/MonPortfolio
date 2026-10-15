@@ -166,7 +166,7 @@ export function Contact() {
         <div className="mt-8 grid gap-10 md:mt-16 md:gap-14 lg:mt-24 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-6">
             <p className="max-w-[40ch] text-lg text-ink/80">
-              Un poste, un master, un produit à construire, une collaboration AgriTech ou
+              Un poste, une formation, un produit à construire, une collaboration ou de la
               3D : décrivez le besoin, je vous réponds.
             </p>
             <motion.a

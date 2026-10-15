@@ -1,15 +1,27 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import {
-  AnimatePresence,
-  motion,
-  useInView,
-} from "framer-motion";
-import { ArrowRight, Boxes, ChevronLeft, ChevronRight, Clapperboard, Maximize2, PenTool, X, type LucideIcon } from "lucide-react";
+  ArrowRight,
+  Boxes,
+  ChevronLeft,
+  ChevronRight,
+  Clapperboard,
+  Maximize2,
+  PenTool,
+  X,
+  type LucideIcon,
+} from "lucide-react";
 import { Scene, ChapterHeading } from "../film/Scene";
 import { KineticText } from "../ui/KineticText";
 import { PillButton } from "../ui/Pill";
 import { Dialog } from "../ui/Dialog";
-import { publishedStudio, categoryLabel, categoryTint, type StudioCategory, type StudioWork } from "../../data/studio";
+import {
+  publishedStudio,
+  categoryLabel,
+  categoryTint,
+  type StudioCategory,
+  type StudioWork,
+} from "../../data/studio";
 import { cdn } from "../../data/gallery";
 import { goTo } from "../../lib/film";
 import { sound } from "../../lib/sound";
@@ -23,10 +35,22 @@ import { ease } from "../../lib/motion";
  * comme une bande-annonce, glisser / flèches / clavier, ouverture en grand.
  */
 
-const ICONS: Record<StudioCategory, LucideIcon> = { design: PenTool, motion: Clapperboard, "3d": Boxes };
+const ICONS: Record<StudioCategory, LucideIcon> = {
+  design: PenTool,
+  motion: Clapperboard,
+  "3d": Boxes,
+};
 
 /* ── Média ou emplacement « Visuel à venir » ── */
-function Media({ work, active = true, size = 1000 }: { work: StudioWork; active?: boolean; size?: number }) {
+function Media({
+  work,
+  active = true,
+  size = 1000,
+}: {
+  work: StudioWork;
+  active?: boolean;
+  size?: number;
+}) {
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const v = ref.current;
@@ -39,10 +63,15 @@ function Media({ work, active = true, size = 1000 }: { work: StudioWork; active?
     const Icon = ICONS[work.category];
     const tint = categoryTint[work.category];
     return (
-      <div className="absolute inset-0 grid place-items-center" style={{ background: `rgb(${tint} / 0.1)`, color: `rgb(${tint})` }}>
+      <div
+        className="absolute inset-0 grid place-items-center"
+        style={{ background: `rgb(${tint} / 0.1)`, color: `rgb(${tint})` }}
+      >
         <div className="flex flex-col items-center gap-2 text-center">
           <Icon size={30} strokeWidth={1.5} aria-hidden />
-          <span className="text-[0.8rem] font-medium opacity-80">Visuel à venir</span>
+          <span className="text-[0.8rem] font-medium opacity-80">
+            Visuel à venir
+          </span>
         </div>
       </div>
     );
@@ -75,7 +104,13 @@ function Media({ work, active = true, size = 1000 }: { work: StudioWork; active?
 }
 
 /* ── Carrousel en perspective ── */
-function Coverflow({ works, onOpen }: { works: StudioWork[]; onOpen: (w: StudioWork) => void }) {
+function Coverflow({
+  works,
+  onOpen,
+}: {
+  works: StudioWork[];
+  onOpen: (w: StudioWork) => void;
+}) {
   const motionOK = useMotionOK();
   const desktop = useIsDesktop();
   const ref = useRef<HTMLDivElement>(null);
@@ -135,36 +170,66 @@ function Coverflow({ works, onOpen }: { works: StudioWork[]; onOpen: (w: StudioW
             <motion.article
               key={w.id}
               className={`absolute left-1/2 top-5 overflow-hidden rounded-[22px] shadow-[0_30px_70px_-30px_rgb(16_18_40/0.55)] md:rounded-[28px] ${w.media ? "bg-ink-2" : "bg-white ring-1 ring-ink/10"}`}
-              style={{ width: cardW, height: cardH, marginLeft: -cardW / 2, zIndex: 20 - abs }}
+              style={{
+                width: cardW,
+                height: cardH,
+                marginLeft: -cardW / 2,
+                zIndex: 20 - abs,
+              }}
               initial={false}
               animate={{
                 x: off * step,
                 scale: center ? 1 : 0.8,
                 rotateY: Math.max(-35, Math.min(35, -off * 22)),
                 opacity: abs > 2 ? 0 : center ? 1 : 0.55,
-                filter: motionOK ? `blur(${center ? 0 : Math.min(abs * 5, 10)}px)` : "blur(0px)",
+                filter: motionOK
+                  ? `blur(${center ? 0 : Math.min(abs * 5, 10)}px)`
+                  : "blur(0px)",
               }}
-              transition={motionOK ? { type: "spring", stiffness: 120, damping: 22, mass: 0.9 } : { duration: 0 }}
+              transition={
+                motionOK
+                  ? { type: "spring", stiffness: 120, damping: 22, mass: 0.9 }
+                  : { duration: 0 }
+              }
               onClick={() => (center ? onOpen(w) : go(off))}
               aria-hidden={!center}
             >
               <Media work={w} active={center} />
-              {w.media && <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-black/20" />}
+              {w.media && (
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-black/20"
+                />
+              )}
               {/* Interface de la carte (référence « Mounty ») */}
-              <div className={`absolute inset-0 flex flex-col justify-between p-4 md:p-6 ${w.media ? "text-white" : "text-ink"}`}>
+              <div
+                className={`absolute inset-0 flex flex-col justify-between p-4 md:p-6 ${w.media ? "text-white" : "text-ink"}`}
+              >
                 <div className="flex items-center justify-between">
                   <span
                     className="rounded-full px-2.5 py-1 text-[0.72rem] font-medium backdrop-blur-sm"
-                    style={{ background: w.media ? "rgb(255 255 255 / 0.18)" : `rgb(${categoryTint[w.category]} / 0.15)` }}
+                    style={{
+                      background: w.media
+                        ? "rgb(255 255 255 / 0.18)"
+                        : `rgb(${categoryTint[w.category]} / 0.15)`,
+                    }}
                   >
                     {categoryLabel[w.category]}
                   </span>
-                  {w.year && <span className="text-[0.75rem] opacity-80">{w.year}</span>}
+                  {w.year && (
+                    <span className="text-[0.75rem] opacity-80">{w.year}</span>
+                  )}
                 </div>
                 <div className="flex items-end justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="truncate text-[1.05rem] font-semibold tracking-[-0.02em] md:text-[1.35rem]">{w.title}</p>
-                    {w.context && <p className="mt-0.5 truncate text-[0.82rem] opacity-80">{w.context}</p>}
+                    <p className="truncate text-[1.05rem] font-semibold tracking-[-0.02em] md:text-[1.35rem]">
+                      {w.title}
+                    </p>
+                    {w.context && (
+                      <p className="mt-0.5 truncate text-[0.82rem] opacity-80">
+                        {w.context}
+                      </p>
+                    )}
                   </div>
                   {center && w.media && (
                     <button
@@ -206,7 +271,9 @@ function Coverflow({ works, onOpen }: { works: StudioWork[]; onOpen: (w: StudioW
               onClick={() => setIndex(i)}
               className="grid h-6 place-items-center"
             >
-              <span className={`block h-1.5 rounded-full transition-all duration-500 ${i === index ? "w-6 bg-ink" : "w-1.5 bg-ink/25"}`} />
+              <span
+                className={`block h-1.5 rounded-full transition-all duration-500 ${i === index ? "w-6 bg-ink" : "w-1.5 bg-ink/25"}`}
+              />
             </button>
           ))}
         </div>
@@ -245,7 +312,13 @@ function Viewer({ work, onClose }: { work: StudioWork; onClose: () => void }) {
               {work.year ? ` · ${work.year}` : ""}
             </span>
           </p>
-          <button type="button" onClick={onClose} data-autofocus className="grid h-11 w-11 place-items-center rounded-full bg-white/10 hover:bg-white/20" aria-label="Fermer">
+          <button
+            type="button"
+            onClick={onClose}
+            data-autofocus
+            className="grid h-11 w-11 place-items-center rounded-full bg-white/10 hover:bg-white/20"
+            aria-label="Fermer"
+          >
             <X size={20} />
           </button>
         </div>
@@ -256,13 +329,31 @@ function Viewer({ work, onClose }: { work: StudioWork; onClose: () => void }) {
           transition={{ duration: 0.6, ease: ease.out }}
         >
           {work.media?.type === "video" ? (
-            <video className="absolute inset-0 h-full w-full object-contain" src={work.media.src} poster={work.media.poster} controls autoPlay playsInline />
+            <video
+              className="absolute inset-0 h-full w-full object-contain"
+              src={work.media.src}
+              poster={work.media.poster}
+              controls
+              autoPlay
+              playsInline
+            />
           ) : (
-            work.media && <img src={cdn(work.media.src, 2000)} alt={work.media.alt} className="absolute inset-0 h-full w-full object-contain" />
+            work.media && (
+              <img
+                src={cdn(work.media.src, 2000)}
+                alt={work.media.alt}
+                className="absolute inset-0 h-full w-full object-contain"
+              />
+            )
           )}
         </motion.div>
         {work.link && (
-          <a href={work.link} target="_blank" rel="noopener noreferrer" className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[0.9rem] font-medium text-black">
+          <a
+            href={work.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[0.9rem] font-medium text-black"
+          >
             Voir le projet <ArrowRight size={16} aria-hidden />
           </a>
         )}
@@ -282,12 +373,21 @@ export function Studio() {
         {/* ── Ouverture ── */}
         <div className="wrap grid items-end gap-6 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-7">
-            <ChapterHeading id="studio" title={<span className="sr-only">Studio — design, motion & 3D</span>} />
+            <ChapterHeading
+              id="studio"
+              title={
+                <span className="sr-only">Studio — design, motion & 3D</span>
+              }
+            />
             <KineticText
               as="p"
               headingProps={{ "aria-hidden": true }}
-              className="text-[clamp(3rem,7.4vw,7.2rem)] font-bold uppercase leading-[0.86] tracking-[-0.05em]"
-              lines={[["Design,"], [{ text: "motion", className: "accent" }], ["& 3D."]]}
+              className="text-[clamp(3rem,7.4vw,7.2rem)] font-bold leading-[0.9] tracking-[-0.05em]"
+              lines={[
+                ["Design,"],
+                [{ text: "Motion", className: "accent" }],
+                ["& 3D."],
+              ]}
             />
           </div>
           <motion.div
@@ -298,9 +398,8 @@ export function Studio() {
             transition={{ duration: 0.8, ease: ease.out, delay: 0.3 }}
           >
             <p className="max-w-[40ch] text-[1.02rem] font-medium leading-snug text-ink/80">
-              Identités visuelles, animations et visualisations 3D — dont des plans et
-              maquettes pour la promotion immobilière. Une autre façon de rendre les
-              systèmes compréhensibles.
+              Identités visuelles, animations et visualisations 3D dont des
+              plans et maquettes pour la promotion immobilière.
             </p>
             <div className="mt-6">
               <PillButton variant="ghost" onClick={() => void goTo("contact")}>
@@ -312,7 +411,9 @@ export function Studio() {
 
         {/* ── Sélection ── */}
         <div className="wrap mt-12 md:mt-16">
-          <p className="mb-4 text-right text-[0.9rem] text-mute">Glissez, ou laissez défiler.</p>
+          <p className="mb-4 text-right text-[0.9rem] text-mute">
+            Glissez, ou laissez défiler.
+          </p>
           <Coverflow
             works={works}
             onOpen={(w) => {
