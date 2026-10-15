@@ -1,4 +1,6 @@
 import type { Project } from "../types/content";
+import bibliothequeCover from "../assets/projects/ma-bibliotheque-upb/cover.webp";
+import eagleVisionCover from "../assets/projects/eagle-vision/cover.webp";
 
 /* ════════════════════════════════════════════════════════════
    RÉALISATIONS
@@ -30,7 +32,11 @@ Grâce à une interface simple, les utilisateurs effectuent des recherches rapid
     role: null, // À compléter : votre rôle exact sur ce projet
     context: "Gama Labs",
     technologies: ["Figma", "React", "Supabase"],
-    cover: null,
+    cover: {
+      src: bibliothequeCover,
+      alt: "Accueil de Ma Bibliothèque : barre de recherche, catégories de documents (examens, cours, TD, TP, mémoires, livres) et derniers cours ajoutés",
+      position: "0% 50%",
+    },
     gallery: [],
     demoUrl: "https://upbstudents-labibliotheque.com/",
     repoUrl: null,
@@ -52,7 +58,10 @@ En combinant l'intelligence artificielle et la technologie des drones, le projet
     context: "Gama Labs",
     // À compléter : technologies réellement utilisées.
     technologies: [],
-    cover: null,
+    cover: {
+      src: eagleVisionCover,
+      alt: "Vue aérienne par drone d'un parc de stationnement : chaque camion et voiture est encadré et étiqueté par le modèle de détection, avec son score de confiance",
+    },
     gallery: [],
     demoUrl: null,
     repoUrl: null,

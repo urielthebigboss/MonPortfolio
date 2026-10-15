@@ -109,7 +109,7 @@ export function ProjectFrame({
             decoding="async"
             onLoad={() => setLoaded(true)}
             className={`absolute inset-0 h-[114%] w-full -translate-y-[7%] object-cover transition-opacity duration-700 ${loaded ? "opacity-100" : "opacity-0"}`}
-            style={motionOK ? { y: parallax } : undefined}
+            style={{ objectPosition: project.cover.position ?? "50% 50%", ...(motionOK ? { y: parallax } : {}) }}
           />
         ) : (
           <TypographicCover project={project} large={large} />

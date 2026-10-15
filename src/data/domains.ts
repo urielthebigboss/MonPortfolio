@@ -1,4 +1,8 @@
 import type { Domain } from "../types/content";
+import softwareImage from "../assets/domains/software.webp";
+import dataImage from "../assets/domains/data.webp";
+import iotImage from "../assets/domains/iot.webp";
+import spatialImage from "../assets/domains/spatial.webp";
 
 /* ════════════════════════════════════════════════════════════
    DOMAINES D'INTERVENTION
@@ -9,6 +13,11 @@ import type { Domain } from "../types/content";
 export const domains: Domain[] = [
   {
     id: "software",
+    image: {
+      src: softwareImage,
+      alt: "Écran d'ordinateur affichant du code Python dans un éditeur, clavier rétroéclairé",
+      position: "50% 42%",
+    },
     number: "01",
     title: "Software Engineering",
     short: "Logiciel",
@@ -31,6 +40,7 @@ export const domains: Domain[] = [
       "SQL",
       "MySQL",
       "Oracle",
+      "Redis",
       "Supabase",
       "Firebase",
       "Postman",
@@ -40,6 +50,11 @@ export const domains: Domain[] = [
   },
   {
     id: "data",
+    image: {
+      src: dataImage,
+      alt: "Tableau de bord analytique sur un écran d'ordinateur : graphique en anneau, courbes et histogrammes",
+      position: "50% 40%",
+    },
     number: "02",
     title: "Data & Intelligence Artificielle",
     short: "Data & IA",
@@ -58,6 +73,11 @@ export const domains: Domain[] = [
   },
   {
     id: "iot",
+    image: {
+      src: iotImage,
+      alt: "Montage Arduino sur plaque d'essai avec écran LCD affichant l'humidité de deux plantes, reliées à des capteurs et à une pompe",
+      position: "50% 65%",
+    },
     number: "03",
     title: "IoT",
     short: "IoT",
@@ -91,6 +111,11 @@ export const domains: Domain[] = [
   },
   {
     id: "spatial",
+    image: {
+      src: spatialImage,
+      alt: "Personnage 3D en cours de modélisation dans Blender, affiché en maillage filaire avec ses panneaux de transformation et de matériau",
+      position: "50% 35%",
+    },
     number: "05",
     title: "3D & Visualisation spatiale",
     short: "3D",

@@ -6,9 +6,9 @@ import { KineticText } from "../ui/KineticText";
 import { site, socials, mailto, whatsappUrl } from "../../config/site";
 import { sound } from "../../lib/sound";
 import { useHoverSound } from "../../lib/hooks";
-import { ease, spring } from "../../lib/motion";
+import { ease } from "../../lib/motion";
+import { SocialIcon } from "../ui/SocialIcon";
 
-const SUBJECTS = ["Poste / stage", "Master", "Projet", "Collaboration", "Autre"];
 
 function CopyEmail() {
   const [copied, setCopied] = useState(false);
@@ -44,7 +44,7 @@ function CopyEmail() {
   );
 }
 
-function SocialRow({ label, handle, url }: { label: string; handle: string; url: string }) {
+function SocialRow({ id, label, handle, url }: { id: string; label: string; handle: string; url: string }) {
   const hover = useHoverSound("tick");
   return (
     <li>
@@ -56,7 +56,10 @@ function SocialRow({ label, handle, url }: { label: string; handle: string; url:
         className="group grid grid-cols-[1fr_auto] items-center gap-4 border-t border-ink/15 py-5"
         {...hover}
       >
-        <span className="flex flex-wrap items-baseline gap-x-4">
+        <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white ring-1 ring-ink/10 transition-transform duration-500 ease-out group-hover:scale-110 md:h-12 md:w-12">
+            <SocialIcon id={id} size={24} />
+          </span>
           <span className="text-[clamp(1.6rem,3vw,2.6rem)] font-semibold tracking-[-0.04em] transition-transform duration-500 ease-out group-hover:translate-x-2">
             {label}
           </span>
@@ -75,7 +78,6 @@ function SocialRow({ label, handle, url }: { label: string; handle: string; url:
 }
 
 function Compose() {
-  const [subject, setSubject] = useState(SUBJECTS[2]);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const nameId = useId();
@@ -85,7 +87,7 @@ function Compose() {
     e.preventDefault();
     sound.play("success");
     const body = `${message.trim()}\n\n— ${name.trim() || "Envoyé depuis le portfolio"}`;
-    window.location.href = mailto(`[Portfolio] ${subject}`, body);
+    window.location.href = mailto("[Portfolio] Prise de contact", body);
   };
 
   const field =
@@ -94,30 +96,7 @@ function Compose() {
   return (
     <form onSubmit={submit} className="rounded-[32px] bg-paper p-5 shadow-[var(--shadow-1)] ring-1 ring-ink/[0.07] sm:p-8">
       <p className="meta text-mute">Écrire un message</p>
-      <fieldset className="mt-5">
-        <legend className="sr-only">Objet</legend>
-        <div className="flex flex-wrap gap-1.5">
-          {SUBJECTS.map((s) => {
-            const on = s === subject;
-            return (
-              <button
-                key={s}
-                type="button"
-                aria-pressed={on}
-                onClick={() => {
-                  setSubject(s);
-                  sound.play("tick");
-                }}
-                className={`relative min-h-[40px] rounded-full px-4 text-[0.92rem] transition-colors ${on ? "text-white" : "text-ink hover:bg-ink/[0.05]"}`}
-              >
-                {on && <motion.span layoutId="subject-pill" className="absolute inset-0 rounded-full bg-ink" transition={spring.pill} />}
-                <span className="relative">{s}</span>
-              </button>
-            );
-          })}
-        </div>
-      </fieldset>
-      <label htmlFor={nameId} className="mb-2 mt-6 block text-[0.92rem] text-ink/75">
+      <label htmlFor={nameId} className="mb-2 mt-5 block text-[0.92rem] text-ink/75">
         Votre nom
       </label>
       <input id={nameId} value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className={field} placeholder="Prénom Nom" />
@@ -138,19 +117,20 @@ function Compose() {
         disabled={!message.trim()}
         className="group mt-6 flex min-h-[52px] w-full items-center justify-center gap-3 rounded-full bg-signal font-medium text-white shadow-[0_14px_34px_-10px_rgb(var(--c-signal)/0.8)] transition-[background-color,opacity,transform] hover:scale-[1.01] hover:bg-[#4d74ff] disabled:opacity-50"
       >
-        Ouvrir dans ma messagerie
+        Envoyer mon message
         <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
       </button>
-      <p className="mt-3 text-center text-xs text-mute">
-        Aucun envoi automatique : le message s'ouvre dans votre application e-mail.
-      </p>
     </form>
   );
 }
 
 export function Contact() {
   const wa = whatsappUrl();
-  const links = socials.filter((s): s is typeof s & { url: string } => !!s.url);
+  // WhatsApp en tête de liste (dès que le numéro est renseigné dans site.ts), puis les réseaux.
+  const links = [
+    ...(wa ? [{ id: "whatsapp", label: "WhatsApp", handle: "Écrire directement", url: wa }] : []),
+    ...socials.filter((s): s is typeof s & { url: string } => !!s.url),
+  ];
 
   return (
     <Scene id="contact" tone="white">
@@ -159,7 +139,7 @@ export function Contact() {
           as="h2"
           id="contact-title"
           headingProps={{ "data-chapter-heading": true, tabIndex: -1 }}
-          className="display"
+          className="display max-md:font-normal"
           lines={[["Écrivons"], [{ text: "la suite.", className: "accent" }]]}
         />
 
@@ -172,26 +152,21 @@ export function Contact() {
             <motion.a
               href={mailto()}
               onClick={() => sound.play("click")}
-              className="mt-6 block break-all md:mt-10 text-[clamp(1.6rem,4.2vw,3.6rem)] font-semibold leading-tight tracking-[-0.04em] underline decoration-ink/25 decoration-1 underline-offset-[0.18em] transition-[text-decoration-color] hover:decoration-ink"
+              className="mt-6 flex items-center gap-3 md:mt-10 md:gap-4 text-[clamp(1.45rem,3.2vw,2.6rem)] font-semibold leading-tight tracking-[-0.04em] group"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: ease.out }}
             >
-              {site.email}
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white ring-1 ring-ink/10 md:h-14 md:w-14">
+                <SocialIcon id="gmail" size={24} />
+              </span>
+              <span className="min-w-0 break-all underline decoration-ink/25 decoration-1 underline-offset-[0.18em] transition-[text-decoration-color] group-hover:decoration-ink">
+                {site.email}
+              </span>
             </motion.a>
             <div className="mt-5 flex flex-wrap gap-2">
               <CopyEmail />
-              {wa && (
-                <a
-                  href={wa}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-ink/[0.05] px-4 text-[0.92rem] transition-colors hover:bg-ink/10"
-                >
-                  WhatsApp <ArrowUpRight size={16} aria-hidden />
-                </a>
-              )}
               {site.cv && (
                 <a
                   href={site.cv}
@@ -206,7 +181,7 @@ export function Contact() {
             {links.length > 0 && (
               <ul className="mt-10 border-b border-ink/15 md:mt-16">
                 {links.map((s) => (
-                  <SocialRow key={s.id} label={s.label} handle={s.handle} url={s.url} />
+                  <SocialRow key={s.id} id={s.id} label={s.label} handle={s.handle} url={s.url} />
                 ))}
               </ul>
             )}

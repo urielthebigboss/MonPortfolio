@@ -32,7 +32,6 @@ import type { ChapterId } from "../../data/chapters";
 import type { DomainId } from "../../types/content";
 import { Scene } from "../film/Scene";
 import { KineticText } from "../ui/KineticText";
-import { PillButton } from "../ui/Pill";
 import hero from "../../assets/images/hero-uriel.webp";
 import portrait from "../../assets/images/portrait-hd.jpeg";
 
@@ -350,14 +349,6 @@ export function Hero() {
         >
           D'une idée, je conçois des solutions numériques de bout en bout.
         </motion.p>
-        <div className="mt-6 flex flex-wrap gap-3 md:hidden">
-          <PillButton onClick={() => void goTo("realisations")}>
-            Réalisations
-          </PillButton>
-          <PillButton variant="ghost" onClick={() => void goTo("parcours")}>
-            Parcours
-          </PillButton>
-        </div>
       </div>
     </>
   );

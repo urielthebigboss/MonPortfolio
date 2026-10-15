@@ -54,7 +54,7 @@ export const studio: StudioWork[] = [
       src: `${CDN}/v1776779652/LOGO_GENIE_UPB_Plan_de_travail_1_copie_5_tun6ea.png`,
       alt: "Logo Génie UPB",
     },
-    published: true,
+    published: false,
   },
   // Emplacements temporaires : remplacez-les par vos créations.
   { id: "slot-motion", title: "Motion design", category: "motion", media: null, published: true },

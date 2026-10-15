@@ -7,34 +7,16 @@ import { ProjectSheet } from "../projects/ProjectSheet";
 import { PillButton, PillLink } from "../ui/Pill";
 import { publishedProjects, statusLabel } from "../../data/projects";
 import { domains } from "../../data/domains";
-import { socials } from "../../config/site";
 import type { DomainId, Project } from "../../types/content";
-import { goTo } from "../../lib/film";
 import { sound } from "../../lib/sound";
 import { useMotionOK } from "../../lib/hooks";
 import { ease, spring } from "../../lib/motion";
 import { TechList } from "../ui/TechList";
 
-/** Chaque réalisation reçoit une mise en page différente (rythme éditorial). */
+/** Même cadre (16:10) pour toutes les réalisations ; seul le côté alterne. */
 const LAYOUTS = [
-  {
-    aspect: "aspect-[16/10]",
-    frame: "lg:col-span-7",
-    info: "lg:col-span-4 lg:col-start-9",
-    flip: false,
-  },
-  {
-    aspect: "aspect-[4/5]",
-    frame: "lg:col-span-5 lg:col-start-8",
-    info: "lg:col-span-5 lg:col-start-1 lg:row-start-1",
-    flip: true,
-  },
-  {
-    aspect: "aspect-square",
-    frame: "lg:col-span-6",
-    info: "lg:col-span-5 lg:col-start-8",
-    flip: false,
-  },
+  { aspect: "aspect-[16/10]", frame: "lg:col-span-7", info: "lg:col-span-4 lg:col-start-9" },
+  { aspect: "aspect-[16/10]", frame: "lg:col-span-7 lg:col-start-6", info: "lg:col-span-4 lg:col-start-1 lg:row-start-1" },
 ];
 
 function ProjectEntry({
@@ -132,7 +114,6 @@ export function Projects() {
   const open = openIndex >= 0 ? list[openIndex] : null;
   const next =
     open && list.length > 1 ? list[(openIndex + 1) % list.length] : null;
-  const github = socials.find((s) => s.id === "github")?.url;
 
   const openProject = (id: string) => {
     sound.play("open");
@@ -208,24 +189,6 @@ export function Projects() {
           </AnimatePresence>
         </motion.ul>
 
-        {publishedProjects.length < 4 && (
-          <div className="mt-16 grid gap-6 rounded-l bg-paper-2 p-6 ring-1 ring-ink/[0.06] md:mt-40 md:gap-8 md:grid-cols-12 md:p-12">
-            <p className="h3 md:col-span-7">
-              D'autres réalisations App, data, IoT, motion et 3D sont en cours
-              de documentation.
-            </p>
-            <div className="flex flex-wrap items-start gap-3 md:col-span-5 md:justify-end">
-              {github && (
-                <PillLink href={github} variant="ghost">
-                  GitHub
-                </PillLink>
-              )}
-              <PillButton onClick={() => void goTo("contact")}>
-                En parler
-              </PillButton>
-            </div>
-          </div>
-        )}
       </div>
 
       <AnimatePresence>

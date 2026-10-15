@@ -171,7 +171,7 @@ export const skillPanels: SkillPanel[] = [
       badge: "Data",
       icon: Database,
       tint: GREEN,
-      tools: ["SQL", "MySQL", "Oracle", "Supabase"],
+      tools: ["MySQL", "Oracle", "Redis", "Supabase"],
     },
     front: {
       title: "Backend & API",

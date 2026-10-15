@@ -25,6 +25,7 @@ npm run lint
 | Ajuster domaines, outils, compétences     | `src/data/domains.ts`                     |
 | Panneaux « Compétences » (défilement)     | `src/data/skills.ts`                      |
 | Logos des technologies                    | `src/lib/techLogos.ts`                    |
+| Équipe Gama Labs (membres, liens, logo)   | `src/data/team.ts` + `src/assets/team/`   |
 | Gérer les photos « Coulisses »            | `src/data/gallery.ts`                     |
 | Renommer / réordonner les chapitres       | `src/data/chapters.ts`                    |
 | Couleurs, typo, espacements, courbes      | `src/styles/tokens.css`                   |

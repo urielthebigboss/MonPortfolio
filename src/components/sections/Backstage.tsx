@@ -250,14 +250,14 @@ export function Backstage() {
                 Ce qui ne tient pas dans un CV.
               </h2>
               <p className="mt-5 max-w-[46ch] text-[1.02rem] font-medium leading-snug text-ink/80">
-                Une &quipes, des compétitions, des sorties terrain : les moments où
+                Une équipes, des compétitions, des sorties terrain : les moments où
                 les projets <span className="accent">prennent vie.</span>
               </p>
               <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
                 <PillButton
                   onClick={() => open(gallery[0], true)}
                   
-                  className="!min-h-[44px] !px-5 text-[0.9rem]"
+                 
                 >
                   Voir les images
                 </PillButton>

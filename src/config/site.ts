@@ -20,7 +20,7 @@ export const site = {
   email: "dakauduriel@gmail.com",
 
   /** Numéro WhatsApp international (ex. "2250700000000"). null = masqué. */
-  whatsapp: null as string | null,
+  whatsapp: "2250595011080" as string | null,
 
   /** Message pré-rempli à l'ouverture d'une conversation WhatsApp. */
   whatsappMessage: "Bonjour Uriel, je viens de découvrir votre portfolio.",

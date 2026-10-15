@@ -114,6 +114,15 @@
     line-height: 1.08;
   }
 
+  /* Mobile : grands titres un cran plus légers */
+  @media (max-width: 767px) {
+    .display,
+    .h1,
+    .h2 {
+      font-weight: 500;
+    }
+  }
+
   /* Accent : dégradé lumineux qui balaie lentement le mot */
   .accent {
     background-image: linear-gradient(

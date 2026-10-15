@@ -382,7 +382,7 @@ export function Studio() {
             <KineticText
               as="p"
               headingProps={{ "aria-hidden": true }}
-              className="text-[clamp(3rem,7.4vw,7.2rem)] font-bold leading-[0.9] tracking-[-0.05em]"
+              className="text-[clamp(3rem,7.4vw,7.2rem)] font-medium leading-[0.9] md:font-bold tracking-[-0.05em]"
               lines={[
                 ["Design,"],
                 [{ text: "Motion", className: "accent" }],

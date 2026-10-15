@@ -13,7 +13,8 @@ const variants: Record<Variant, string> = {
 };
 
 const base =
-  "group relative inline-flex min-h-[48px] items-center gap-3 overflow-hidden rounded-full px-6 text-[0.95rem] font-medium tracking-[-0.01em] transition-[background,color,box-shadow,transform] duration-300 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40";
+  // Mobile : pilules compactes (moins de place) ; taille normale dès 768 px.
+  "group relative inline-flex min-h-[38px] items-center gap-2 overflow-hidden rounded-full px-4 text-[0.85rem] md:min-h-[48px] md:gap-3 md:px-6 md:text-[0.95rem] font-medium tracking-[-0.01em] transition-[background,color,box-shadow,transform] duration-300 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40";
 
 /** Icône qui glisse : la flèche sort par le haut, une autre entre par le bas. */
 function SlideIcon({ icon }: { icon?: ReactNode }) {

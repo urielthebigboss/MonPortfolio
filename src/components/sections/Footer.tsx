@@ -10,17 +10,14 @@ import { useMotionOK } from "../../lib/hooks";
 import { ease } from "../../lib/motion";
 
 import { Lightbox } from "../projects/Lightbox";
+import BG from "../../assets/images/footer.webp";
 
 /*
  * Générique de fin, sur le modèle de la référence « Strikers » :
- * une grande carte photo arrondie (sortie terrain au Banco), titre blanc
+ * une grande carte photo arrondie (prairie et montagnes), titre blanc
  * en haut à gauche, boutons, carte « vidéo » en verre qui lance le film
  * des coulisses, pastilles de navigation et nom géant translucide en bas.
  */
-
-const BG = `https://res.cloudinary.com/dppzzrley/image/upload/f_auto,q_auto,w_2000/v1776779654/IMG_3002_icw1uc.jpg`;
-
-
 
 
 export function Footer() {
@@ -41,10 +38,11 @@ export function Footer() {
         {/* Photo plein cadre */}
         <motion.img
           src={BG}
-          alt="Sortie terrain en forêt du Banco avec l'équipe"
+          alt=""
+          aria-hidden
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 -z-10 h-[116%] w-full object-cover object-[50%_58%] will-change-transform"
+          className="absolute inset-0 -z-10 h-[116%] w-full object-cover object-[50%_55%] will-change-transform"
           style={motionOK ? { y: bgY } : undefined}
         />
         {/* Voile léger pour la lisibilité du texte */}

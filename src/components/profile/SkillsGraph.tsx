@@ -1,10 +1,12 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Hand } from "lucide-react";
+import { ArrowUpRight, Hand } from "lucide-react";
 import { skillPanels, type SkillCard, type SkillPanel } from "../../data/skills";
 import { techLogo } from "../../lib/techLogos";
 import { useMediaQuery, useMotionOK } from "../../lib/hooks";
 import { ease } from "../../lib/motion";
+import { team, roleTint, type TeamMember } from "../../data/team";
+import { goTo } from "../../lib/film";
 import portrait from "../../assets/images/portrait-hd.jpeg";
 
 /*
@@ -191,6 +193,56 @@ function Node({
   );
 }
 
+/** Liaisons animées : tracé qui se dessine, points d'attache, impulsions. */
+function LinksLayer({ links, W, H }: { links: Link[]; W: number; H: number }) {
+  const motionOK = useMotionOK();
+  return (
+    <svg className="absolute inset-0 overflow-visible" width={W} height={H} aria-hidden>
+      {links.map((l, i) => (
+        <g key={i}>
+          <motion.path
+            d={l.d}
+            fill="none"
+            stroke="rgb(var(--c-signal) / 0.55)"
+            strokeWidth={1.5}
+            strokeDasharray={l.solid ? undefined : "5 6"}
+            strokeLinecap="round"
+            initial={motionOK ? { pathLength: 0, opacity: 0 } : false}
+            whileInView={{ pathLength: 1, opacity: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.9, ease: ease.inOut, delay: 0.3 + i * 0.16 }}
+          />
+          {motionOK && l.solid && (
+            <circle r={3} fill="rgb(var(--c-signal))">
+              <animateMotion dur={`${2.4 + i * 0.4}s`} repeatCount="indefinite" path={l.d} begin={`${1.4 + i * 0.3}s`} />
+            </circle>
+          )}
+          {[l.a, ...(l.solid ? [l.b] : [])].map(([x, y], j) => (
+            <motion.circle
+              key={j}
+              cx={x}
+              cy={y}
+              r={4.5}
+              fill="white"
+              stroke="rgb(var(--c-signal))"
+              strokeWidth={1.5}
+              initial={motionOK ? { scale: 0 } : false}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.4, delay: 0.45 + i * 0.14 }}
+            />
+          ))}
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+const DOT_GRID = {
+  backgroundImage: "radial-gradient(rgb(var(--c-ink) / 0.13) 1px, transparent 1.3px)",
+  backgroundSize: "18px 18px",
+};
+
 /** Un panneau : le schéma complet, mis à l'échelle. */
 function Diagram({ panel, L, scale }: { panel: SkillPanel; L: Layout; scale: number }) {
   const motionOK = useMotionOK();
@@ -209,44 +261,7 @@ function Diagram({ panel, L, scale }: { panel: SkillPanel; L: Layout; scale: num
           style={{ backgroundImage: "radial-gradient(rgb(var(--c-ink) / 0.13) 1px, transparent 1.3px)", backgroundSize: "18px 18px" }}
         />
 
-        <svg className="absolute inset-0 overflow-visible" width={L.W} height={L.H} aria-hidden>
-          {links.map((l, i) => (
-            <g key={i}>
-              <motion.path
-                d={l.d}
-                fill="none"
-                stroke="rgb(var(--c-signal) / 0.55)"
-                strokeWidth={1.5}
-                strokeDasharray={l.solid ? undefined : "5 6"}
-                strokeLinecap="round"
-                initial={motionOK ? { pathLength: 0, opacity: 0 } : false}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.9, ease: ease.inOut, delay: 0.3 + i * 0.16 }}
-              />
-              {motionOK && l.solid && (
-                <circle r={3} fill="rgb(var(--c-signal))">
-                  <animateMotion dur={`${2.4 + i * 0.4}s`} repeatCount="indefinite" path={l.d} begin={`${1.4 + i * 0.3}s`} />
-                </circle>
-              )}
-              {[l.a, ...(l.solid ? [l.b] : [])].map(([x, y], j) => (
-                <motion.circle
-                  key={j}
-                  cx={x}
-                  cy={y}
-                  r={4.5}
-                  fill="white"
-                  stroke="rgb(var(--c-signal))"
-                  strokeWidth={1.5}
-                  initial={motionOK ? { scale: 0 } : false}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.4, delay: 0.45 + i * 0.14 }}
-                />
-              ))}
-            </g>
-          ))}
-        </svg>
+        <LinksLayer links={links} W={L.W} H={L.H} />
 
         <Node r={L.root} delay={0.05} className="!rounded-full">
           <div className="flex h-full items-center gap-3 px-3">
@@ -328,6 +343,147 @@ function Diagram({ panel, L, scale }: { panel: SkillPanel; L: Layout; scale: num
   );
 }
 
+/* ── Équipe Gama Labs : même design, membres reliés en arbre ── */
+type TeamLayout = { W: number; H: number; root: Rect; main: Rect; cols: number[]; rows: number[]; cw: number; ch: number };
+const TEAM_WIDE: TeamLayout = {
+  W: 580,
+  H: 520,
+  root: { x: 140, y: 0, w: 300, h: 52 },
+  main: { x: 110, y: 92, w: 360, h: 124 },
+  cols: [0, 201, 402],
+  rows: [296, 416],
+  cw: 178,
+  ch: 96,
+};
+const TEAM_NARROW: TeamLayout = {
+  W: 340,
+  H: 612,
+  root: { x: 20, y: 0, w: 300, h: 50 },
+  main: { x: 0, y: 84, w: 340, h: 124 },
+  cols: [0, 176],
+  rows: [272, 392, 512],
+  cw: 164,
+  ch: 96,
+};
+
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+function Avatar({ m, size }: { m: TeamMember; size: number }) {
+  const tint = roleTint[m.roles[0]];
+  const src = m.me ? portrait : m.photo;
+  return src ? (
+    <img src={src} alt="" className="shrink-0 rounded-full object-cover object-[50%_22%] ring-2 ring-white" style={{ width: size, height: size }} />
+  ) : (
+    <span
+      className="grid shrink-0 place-items-center rounded-full text-[0.72rem] font-semibold ring-2 ring-white"
+      style={{ width: size, height: size, background: `rgb(${tint} / 0.14)`, color: `rgb(${tint})` }}
+    >
+      {initials(m.name)}
+    </span>
+  );
+}
+
+function MemberCard({ m }: { m: TeamMember }) {
+  const body = (
+    <>
+      <Avatar m={m} size={40} />
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-[0.88rem] font-semibold tracking-[-0.01em]">
+          {m.name}
+        </p>
+        {m.handle && <p className="text-[0.72rem] text-mute">{m.handle}</p>}
+        <div className="mt-1.5 flex flex-wrap gap-1">
+          {m.roles.map((r) => (
+            <Badge key={r} tint={roleTint[r]}>
+              {r}
+            </Badge>
+          ))}
+        </div>
+      </div>
+      {(m.url || m.me) && <ArrowUpRight size={15} className="absolute right-2.5 top-2.5 text-ink/40 transition-colors group-hover:text-signal" aria-hidden />}
+    </>
+  );
+  const cls = "group relative flex h-full w-full items-center gap-2.5 px-3 text-left";
+  if (m.me)
+    return (
+      <button type="button" className={cls} onClick={() => void goTo("ouverture")} aria-label={`${m.name} — retour au début du portfolio`}>
+        {body}
+      </button>
+    );
+  if (m.url)
+    return (
+      <a href={m.url} target="_blank" rel="noopener noreferrer" className={cls} aria-label={`Portfolio de ${m.name} (nouvel onglet)`}>
+        {body}
+      </a>
+    );
+  return <div className={cls}>{body}</div>;
+}
+
+function TeamDiagram({ T, scale }: { T: TeamLayout; scale: number }) {
+  const per = T.cols.length;
+  const slot = (i: number): Rect => ({ x: T.cols[i % per], y: T.rows[Math.floor(i / per)], w: T.cw, h: T.ch });
+  const members = team.members;
+  const links: Link[] = [elbowV(cxOf(T.root), T.root.y + T.root.h, cxOf(T.main), T.main.y)];
+  members.forEach((_, i) => {
+    const r = slot(i);
+    if (i < per) links.push(elbowV(cxOf(T.main), T.main.y + T.main.h, cxOf(r), r.y));
+    else {
+      const above = slot(i - per);
+      links.push(elbowV(cxOf(above), above.y + above.h, cxOf(r), r.y));
+    }
+  });
+
+  return (
+    <div className="relative" style={{ width: T.W * scale, height: T.H * scale }}>
+      <div className="absolute left-0 top-0 origin-top-left" style={{ width: T.W, height: T.H, transform: `scale(${scale})` }}>
+        <div aria-hidden className="absolute -inset-6 opacity-70" style={DOT_GRID} />
+        <LinksLayer links={links} W={T.W} H={T.H} />
+
+        <Node r={T.root} delay={0.05} className="!rounded-full">
+          <div className="flex h-full items-center gap-3 px-3">
+            {team.logo ? (
+              <img src={team.logo} alt="Logo Gama Labs" className="h-8 w-8 shrink-0 rounded-full object-contain" />
+            ) : (
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-[0.7rem] font-semibold text-white">GL</span>
+            )}
+            <p className="truncate whitespace-nowrap text-[0.9rem] font-medium">
+              Startup : <span className="accent">{team.name}</span>
+            </p>
+            <span className="ml-auto whitespace-nowrap text-[0.7rem] text-mute">{members.length} membres</span>
+          </div>
+        </Node>
+
+        <Node r={T.main} delay={0.2}>
+          <div className="p-4">
+            <p className="text-[1.02rem] font-semibold tracking-[-0.02em]">L'équipe {team.name}</p>
+            <p className="mt-0.5 text-[0.8rem] text-mute">{team.tagline}</p>
+            <div className="mt-4 flex items-center gap-3">
+              <Badge tint="242 107 29">Équipe</Badge>
+              <div className="flex -space-x-2">
+                {members.map((m) => (
+                  <Avatar key={m.id} m={m} size={30} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </Node>
+
+        {members.map((m, i) => (
+          <Node key={m.id} r={slot(i)} delay={0.45 + i * 0.1}>
+            <MemberCard m={m} />
+          </Node>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /** Taille d'écran (mise à jour au redimensionnement). */
 function useViewport() {
   const [v, setV] = useState({ w: 1280, h: 800 });
@@ -355,6 +511,8 @@ export function SkillsReel() {
   const top = wide ? 170 : 120;
   const bottom = wide ? 40 : 100; // barre d'onglets sur mobile
   const scale = Math.max(0.55, Math.min(1.1, panelW / L.W, (vp.h - top - bottom) / L.H));
+  const T = wide ? TEAM_WIDE : TEAM_NARROW;
+  const teamScale = Math.max(0.55, Math.min(1.1, panelW / T.W, (vp.h - top - bottom) / T.H));
 
   useLayoutEffect(() => {
     const el = track.current;
@@ -382,7 +540,7 @@ export function SkillsReel() {
         <div className="wrap">
           <h3 className="h3">Compétences</h3>
           <p className="mt-1 text-[0.95rem] text-mute">
-            Transverses, puis techniques.
+            Transverses, techniques, puis l'équipe.
           </p>
         </div>
 
@@ -399,6 +557,12 @@ export function SkillsReel() {
               </div>
             </section>
           ))}
+          <section aria-label="Équipe — Gama Labs" className="shrink-0" style={{ width: panelW }}>
+            <p className="meta mb-5 text-mute">Équipe — {team.name}</p>
+            <div className="flex justify-center">
+              <TeamDiagram T={T} scale={teamScale} />
+            </div>
+          </section>
         </motion.div>
       </div>
     </div>

@@ -17,6 +17,13 @@ export type Domain = {
   tools: string[];
   /** Où en est cette discipline dans mon parcours. */
   stance?: string;
+  /** Photo du domaine (remplace l'illustration animée). */
+  /**
+   * fit "contain" = image affichée en entier, sans recadrage.
+   * backdrop : fond autour d'elle — "white" (schémas) ou "blur" (photos :
+   * la même image floutée remplit les côtés).
+   */
+  image?: { src: string; alt: string; position?: string; fit?: "cover" | "contain"; backdrop?: "white" | "blur" };
 };
 
 export type ProjectStatus = "publie" | "en-cours" | "a-venir";
@@ -26,6 +33,8 @@ export type ProjectImage = {
   src: string;
   /** Texte alternatif : décrire ce que montre l'image. Obligatoire. */
   alt: string;
+  /** Point de cadrage dans la vignette (object-position), ex. "0% 50%". */
+  position?: string;
 };
 
 export type ProjectLink = { label: string; url: string };

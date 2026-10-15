@@ -9,9 +9,41 @@ import type { Domain } from "../../types/content";
 import { selectedDomain } from "../../lib/selection";
 import { useStore } from "../../lib/store";
 import { sound } from "../../lib/sound";
-import { useFinePointer, useIsDesktop } from "../../lib/hooks";
+import { useFinePointer, useIsDesktop, useMotionOK } from "../../lib/hooks";
 import { ease } from "../../lib/motion";
 import { TechList } from "../ui/TechList";
+
+/** Photo du domaine si elle existe, sinon l'illustration animée. */
+function DomainMedia({ domain, className }: { domain: Domain; className: string }) {
+  const motionOK = useMotionOK();
+  if (!domain.image) return <DomainVisual id={domain.id} className={className} />;
+  const contain = domain.image.fit === "contain";
+  const blur = contain && domain.image.backdrop === "blur";
+  return (
+    <div className={`relative overflow-hidden rounded-[16px] ${contain && !blur ? "bg-white" : ""} ${className}`}>
+      {blur && (
+        <img
+          src={domain.image.src}
+          alt=""
+          aria-hidden
+          decoding="async"
+          className="absolute inset-0 h-full w-full scale-125 object-cover opacity-60 blur-2xl"
+        />
+      )}
+      <motion.img
+        key={domain.id}
+        src={domain.image.src}
+        alt={domain.image.alt}
+        decoding="async"
+        className={`absolute inset-0 h-full w-full ${contain ? `object-contain ${blur ? "" : "p-2"}` : "object-cover"}`}
+        style={{ objectPosition: domain.image.position ?? "50% 50%" }}
+        initial={motionOK ? { scale: 1.12, opacity: 0 } : false}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1.2, ease: ease.out }}
+      />
+    </div>
+  );
+}
 
 function DomainDetail({ domain, compact = false }: { domain: Domain; compact?: boolean }) {
   return (
@@ -145,7 +177,7 @@ export function Domains() {
                     <div
                       className="mb-7 rounded-[24px] bg-ink p-3"
                     >
-                      <DomainVisual id={current.id} className="mx-auto h-[24vh] max-h-[300px] w-full" />
+                      <DomainMedia domain={current} className="mx-auto h-[24vh] max-h-[300px] w-full" />
                     </div>
                     <DomainDetail domain={current} />
                   </motion.div>
@@ -169,7 +201,7 @@ export function Domains() {
                       className="grid min-h-[64px] w-full grid-cols-[2.5rem_1fr_auto] items-center py-5 text-left"
                     >
                       <span className={`meta ${on ? "text-signal" : "text-mute"}`}>{d.number}</span>
-                      <span className={`text-[1.65rem] font-semibold leading-[1.05] tracking-[-0.04em] ${on ? "text-ink" : "text-ink/45"}`}>
+                      <span className={`text-[1.65rem] font-medium leading-[1.05] tracking-[-0.04em] ${on ? "text-ink" : "text-ink/45"}`}>
                         {d.title}
                       </span>
                       <Plus
@@ -192,10 +224,9 @@ export function Domains() {
                       >
                         <div className="pb-10">
                           <p className="mb-6 text-xl font-medium tracking-[-0.02em] text-ink/75">{d.statement}</p>
-                          <div
-                            className="mb-6 rounded-[22px] bg-ink p-3"
-                          >
-                            <DomainVisual id={d.id} className="mx-auto w-full max-w-[380px]" />
+                          {/* Image masquée sur mobile, visible dès la tablette */}
+                          <div className="mb-6 hidden rounded-[22px] bg-ink p-3 md:block">
+                            <DomainMedia domain={d} className="mx-auto aspect-[42/34] w-full max-w-[380px]" />
                           </div>
                           <DomainDetail domain={d} compact />
                         </div>

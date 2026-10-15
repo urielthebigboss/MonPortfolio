@@ -46,7 +46,7 @@ export const chapters: Chapter[] = [
     id: "profil",
     number: "01",
     title: "Profil",
-    logline: "Relier le terrain, la donnée et l'écran",
+    logline: "Qui suis-je ?",
     tab: "accueil",
     icon: UserRound,
     legacyPaths: ["/profil"],

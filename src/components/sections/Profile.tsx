@@ -62,8 +62,7 @@ export function Profile() {
           id="profil"
           title={
             <>
-              Relier le terrain, la donnée{" "}
-              <span className="accent">et l'écran.</span>
+              Qui <span className="accent">suis-je ?</span>
             </>
           }
         />

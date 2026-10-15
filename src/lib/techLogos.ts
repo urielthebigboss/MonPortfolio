@@ -15,12 +15,19 @@ import figma from "devicon/icons/figma/figma-original.svg";
 import aftereffects from "devicon/icons/aftereffects/aftereffects-original.svg";
 import blender from "devicon/icons/blender/blender-original.svg";
 import framermotion from "devicon/icons/framermotion/framermotion-original.svg";
+import redis from "devicon/icons/redis/redis-original.svg";
+import powerbi from "../assets/logos/powerbi.svg";
+import { siUml } from "simple-icons";
+
+/** Logo Simple Icons (monochrome officiel) converti en image, couleur de marque. */
+const simpleIcon = (icon: { path: string; hex: string }) =>
+  `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#${icon.hex}"><path d="${icon.path}"/></svg>`)}`;
 
 /*
  * Logos officiels des technologies (Devicon, embarqués localement).
  * La clé est le nom tel qu'écrit dans src/data (insensible à la casse).
  * Une technologie absente de cette table s'affiche en texte
- * (ex. « Machine Learning », « SQL », « UML », « Power BI »).
+ * (ex. « Machine Learning », « SQL »).
  * Pour en ajouter une : importez son SVG depuis devicon/icons/<nom>/
  * et ajoutez une entrée ici.
  */
@@ -42,6 +49,9 @@ export const LOGOS: Record<string, string> = {
   "after effects": aftereffects,
   blender,
   "framer motion": framermotion,
+  redis,
+  "power bi": powerbi,
+  uml: simpleIcon(siUml),
 };
 
 export const techLogo = (name: string) => LOGOS[name.trim().toLowerCase()];
