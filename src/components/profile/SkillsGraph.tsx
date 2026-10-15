@@ -1,7 +1,11 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Hand } from "lucide-react";
-import { skillPanels, type SkillCard, type SkillPanel } from "../../data/skills";
+import {
+  skillPanels,
+  type SkillCard,
+  type SkillPanel,
+} from "../../data/skills";
 import { techLogo } from "../../lib/techLogos";
 import { useMediaQuery, useMotionOK } from "../../lib/hooks";
 import { ease } from "../../lib/motion";
@@ -63,7 +67,10 @@ const NARROW: Layout = {
 };
 
 /* ── Petits éléments ── */
-const ABBR: Record<string, string> = { "power bi": "BI", "machine learning": "ML" };
+const ABBR: Record<string, string> = {
+  "power bi": "BI",
+  "machine learning": "ML",
+};
 
 function ToolTile({ name, size }: { name: string; size: number }) {
   const logo = techLogo(name);
@@ -74,7 +81,12 @@ function ToolTile({ name, size }: { name: string; size: number }) {
       style={{ width: size, height: size }}
     >
       {logo ? (
-        <img src={logo} alt="" decoding="async" style={{ width: size * 0.62, height: size * 0.62 }} />
+        <img
+          src={logo}
+          alt=""
+          decoding="async"
+          style={{ width: size * 0.62, height: size * 0.62 }}
+        />
       ) : (
         <span className="text-[10px] font-semibold tracking-tight text-ink/70">
           {ABBR[name.toLowerCase()] ?? name.slice(0, 3).toUpperCase()}
@@ -91,7 +103,12 @@ function IconTile({ card, size }: { card: SkillCard; size: number }) {
     <span
       title={card.title}
       className="grid shrink-0 place-items-center rounded-[10px] shadow-[inset_0_1px_0_rgb(255_255_255/0.6)]"
-      style={{ width: size, height: size, background: `rgb(${card.tint} / 0.12)`, color: `rgb(${card.tint})` }}
+      style={{
+        width: size,
+        height: size,
+        background: `rgb(${card.tint} / 0.12)`,
+        color: `rgb(${card.tint})`,
+      }}
     >
       <Icon size={size * 0.5} strokeWidth={1.9} aria-hidden />
     </span>
@@ -117,12 +134,18 @@ function CardBody({ card }: { card: SkillCard }) {
     <div className="flex h-full items-center gap-3 px-3.5">
       <IconTile card={card} size={38} />
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[0.92rem] font-semibold tracking-[-0.01em]">{card.title}</p>
-        {card.sub && <p className="mt-0.5 truncate text-[0.74rem] text-mute">{card.sub}</p>}
+        <p className="truncate text-[0.92rem] font-semibold tracking-[-0.01em]">
+          {card.title}
+        </p>
+        {card.sub && (
+          <p className="mt-0.5 truncate text-[0.74rem] text-mute">{card.sub}</p>
+        )}
         {(card.badge || card.tools?.length) && (
           <div className="mt-1.5 flex min-w-0 items-center gap-1 overflow-hidden">
             {card.badge && <Badge tint={card.tint}>{card.badge}</Badge>}
-            {card.tools?.slice(0, 4).map((t) => <ToolTile key={t} name={t} size={20} />)}
+            {card.tools?.slice(0, 4).map((t) => (
+              <ToolTile key={t} name={t} size={20} />
+            ))}
           </div>
         )}
       </div>
@@ -131,21 +154,40 @@ function CardBody({ card }: { card: SkillCard }) {
 }
 
 /* ── Liaisons calculées depuis la disposition ── */
-type Link = { d: string; solid: boolean; a: [number, number]; b: [number, number] };
+type Link = {
+  d: string;
+  solid: boolean;
+  a: [number, number];
+  b: [number, number];
+};
 const cxOf = (r: Rect) => r.x + r.w / 2;
 const elbowV = (x1: number, y1: number, x2: number, y2: number): Link => {
   const ym = (y1 + y2) / 2;
-  return { d: `M ${x1} ${y1} V ${ym} H ${x2} V ${y2}`, solid: true, a: [x1, y1], b: [x2, y2] };
+  return {
+    d: `M ${x1} ${y1} V ${ym} H ${x2} V ${y2}`,
+    solid: true,
+    a: [x1, y1],
+    b: [x2, y2],
+  };
 };
 
 function linksFor(p: SkillPanel, L: Layout): Link[] {
-  const out: Link[] = [elbowV(cxOf(L.root), L.root.y + L.root.h, cxOf(L.main), L.main.y)];
+  const out: Link[] = [
+    elbowV(cxOf(L.root), L.root.y + L.root.h, cxOf(L.main), L.main.y),
+  ];
   if (p.side) {
     if (L.side.x >= L.main.x + L.main.w) {
       const y1 = L.side.y + L.side.h / 2;
-      out.push({ d: `M ${L.main.x + L.main.w} ${y1} H ${L.side.x}`, solid: true, a: [L.main.x + L.main.w, y1], b: [L.side.x, y1] });
+      out.push({
+        d: `M ${L.main.x + L.main.w} ${y1} H ${L.side.x}`,
+        solid: true,
+        a: [L.main.x + L.main.w, y1],
+        b: [L.side.x, y1],
+      });
     } else {
-      out.push(elbowV(cxOf(L.side), L.main.y + L.main.h, cxOf(L.side), L.side.y));
+      out.push(
+        elbowV(cxOf(L.side), L.main.y + L.main.h, cxOf(L.side), L.side.y),
+      );
     }
   }
   if (p.back) {
@@ -153,12 +195,26 @@ function linksFor(p: SkillPanel, L: Layout): Link[] {
     const y1 = L.main.y + L.main.h;
     const x2 = cxOf(L.back);
     const y2 = L.back.y;
-    out.push({ d: `M ${x1} ${y1} C ${x1} ${y1 + 60}, ${x2} ${y2 - 50}, ${x2} ${y2}`, solid: false, a: [x1, y1], b: [x2, y2] });
+    out.push({
+      d: `M ${x1} ${y1} C ${x1} ${y1 + 60}, ${x2} ${y2 - 50}, ${x2} ${y2}`,
+      solid: false,
+      a: [x1, y1],
+      b: [x2, y2],
+    });
   }
   if (p.lead && p.branch) {
     const from = L.branchFrom === "side" && p.side ? L.side : L.main;
-    out.push(elbowV(L.branchFrom === "side" ? cxOf(L.branch) : cxOf(from), from.y + from.h, cxOf(L.branch), L.branch.y));
-    out.push(elbowV(cxOf(L.branch), L.branch.y + L.branch.h, cxOf(L.branch), L.lead.y));
+    out.push(
+      elbowV(
+        L.branchFrom === "side" ? cxOf(L.branch) : cxOf(from),
+        from.y + from.h,
+        cxOf(L.branch),
+        L.branch.y,
+      ),
+    );
+    out.push(
+      elbowV(cxOf(L.branch), L.branch.y + L.branch.h, cxOf(L.branch), L.lead.y),
+    );
   }
   if (p.lead && p.comm) {
     const x = Math.min(cxOf(L.branch), L.lead.x + L.lead.w - 30);
@@ -197,7 +253,12 @@ function Node({
 function LinksLayer({ links, W, H }: { links: Link[]; W: number; H: number }) {
   const motionOK = useMotionOK();
   return (
-    <svg className="absolute inset-0 overflow-visible" width={W} height={H} aria-hidden>
+    <svg
+      className="absolute inset-0 overflow-visible"
+      width={W}
+      height={H}
+      aria-hidden
+    >
       {links.map((l, i) => (
         <g key={i}>
           <motion.path
@@ -210,11 +271,20 @@ function LinksLayer({ links, W, H }: { links: Link[]; W: number; H: number }) {
             initial={motionOK ? { pathLength: 0, opacity: 0 } : false}
             whileInView={{ pathLength: 1, opacity: 1 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.9, ease: ease.inOut, delay: 0.3 + i * 0.16 }}
+            transition={{
+              duration: 0.9,
+              ease: ease.inOut,
+              delay: 0.3 + i * 0.16,
+            }}
           />
           {motionOK && l.solid && (
             <circle r={3} fill="rgb(var(--c-signal))">
-              <animateMotion dur={`${2.4 + i * 0.4}s`} repeatCount="indefinite" path={l.d} begin={`${1.4 + i * 0.3}s`} />
+              <animateMotion
+                dur={`${2.4 + i * 0.4}s`}
+                repeatCount="indefinite"
+                path={l.d}
+                begin={`${1.4 + i * 0.3}s`}
+              />
             </circle>
           )}
           {[l.a, ...(l.solid ? [l.b] : [])].map(([x, y], j) => (
@@ -239,12 +309,21 @@ function LinksLayer({ links, W, H }: { links: Link[]; W: number; H: number }) {
 }
 
 const DOT_GRID = {
-  backgroundImage: "radial-gradient(rgb(var(--c-ink) / 0.13) 1px, transparent 1.3px)",
+  backgroundImage:
+    "radial-gradient(rgb(var(--c-ink) / 0.13) 1px, transparent 1.3px)",
   backgroundSize: "18px 18px",
 };
 
 /** Un panneau : le schéma complet, mis à l'échelle. */
-function Diagram({ panel, L, scale }: { panel: SkillPanel; L: Layout; scale: number }) {
+function Diagram({
+  panel,
+  L,
+  scale,
+}: {
+  panel: SkillPanel;
+  L: Layout;
+  scale: number;
+}) {
   const motionOK = useMotionOK();
   const links = linksFor(panel, L);
   const tiles = panel.main.tiles;
@@ -252,13 +331,23 @@ function Diagram({ panel, L, scale }: { panel: SkillPanel; L: Layout; scale: num
   const RootIcon = panel.root.icon;
 
   return (
-    <div className="relative" style={{ width: L.W * scale, height: L.H * scale }}>
-      <div className="absolute left-0 top-0 origin-top-left" style={{ width: L.W, height: L.H, transform: `scale(${scale})` }}>
+    <div
+      className="relative"
+      style={{ width: L.W * scale, height: L.H * scale }}
+    >
+      <div
+        className="absolute left-0 top-0 origin-top-left"
+        style={{ width: L.W, height: L.H, transform: `scale(${scale})` }}
+      >
         {/* Trame de points */}
         <div
           aria-hidden
           className="absolute -inset-6 opacity-70"
-          style={{ backgroundImage: "radial-gradient(rgb(var(--c-ink) / 0.13) 1px, transparent 1.3px)", backgroundSize: "18px 18px" }}
+          style={{
+            backgroundImage:
+              "radial-gradient(rgb(var(--c-ink) / 0.13) 1px, transparent 1.3px)",
+            backgroundSize: "18px 18px",
+          }}
         />
 
         <LinksLayer links={links} W={L.W} H={L.H} />
@@ -266,7 +355,11 @@ function Diagram({ panel, L, scale }: { panel: SkillPanel; L: Layout; scale: num
         <Node r={L.root} delay={0.05} className="!rounded-full">
           <div className="flex h-full items-center gap-3 px-3">
             {panel.root.avatar ? (
-              <img src={portrait} alt="" className="h-8 w-8 shrink-0 rounded-full object-cover object-[50%_22%]" />
+              <img
+                src={portrait}
+                alt=""
+                className="h-8 w-8 shrink-0 rounded-full object-cover object-[50%_22%]"
+              />
             ) : (
               RootIcon && (
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-signal/10 text-signal">
@@ -275,21 +368,32 @@ function Diagram({ panel, L, scale }: { panel: SkillPanel; L: Layout; scale: num
               )
             )}
             <p className="truncate whitespace-nowrap text-[0.9rem] font-medium">
-              {panel.root.label} <span className="accent">{panel.root.accent}</span>
+              {panel.root.label}{" "}
+              <span className="accent">{panel.root.accent}</span>
             </p>
-            <span className="ml-auto whitespace-nowrap text-[0.7rem] text-mute">{panel.root.meta}</span>
+            <span className="ml-auto whitespace-nowrap text-[0.7rem] text-mute">
+              {panel.root.meta}
+            </span>
           </div>
         </Node>
 
         <Node r={L.main} delay={0.2}>
           <div className="p-4">
-            <p className="truncate text-[1.02rem] font-semibold tracking-[-0.02em]">{panel.main.title}</p>
-            <p className="mt-0.5 truncate text-[0.8rem] text-mute">{panel.main.sub}</p>
+            <p className="truncate text-[1.02rem] font-semibold tracking-[-0.02em]">
+              {panel.main.title}
+            </p>
+            <p className="mt-0.5 truncate text-[0.8rem] text-mute">
+              {panel.main.sub}
+            </p>
             <div className="mt-4 flex items-center gap-2">
               <Badge tint="242 107 29">{panel.main.badge}</Badge>
               <div className="flex gap-1.5">
-                {tiles?.slice(0, 5).map((t) => <IconTile key={t.title} card={t} size={32} />)}
-                {tools.slice(0, 5).map((t) => <ToolTile key={t} name={t} size={32} />)}
+                {tiles?.slice(0, 5).map((t) => (
+                  <IconTile key={t.title} card={t} size={32} />
+                ))}
+                {tools.slice(0, 5).map((t) => (
+                  <ToolTile key={t} name={t} size={32} />
+                ))}
               </div>
             </div>
           </div>
@@ -344,7 +448,16 @@ function Diagram({ panel, L, scale }: { panel: SkillPanel; L: Layout; scale: num
 }
 
 /* ── Équipe Gama Labs : même design, membres reliés en arbre ── */
-type TeamLayout = { W: number; H: number; root: Rect; main: Rect; cols: number[]; rows: number[]; cw: number; ch: number };
+type TeamLayout = {
+  W: number;
+  H: number;
+  root: Rect;
+  main: Rect;
+  cols: number[];
+  rows: number[];
+  cw: number;
+  ch: number;
+};
 const TEAM_WIDE: TeamLayout = {
   W: 580,
   H: 520,
@@ -378,11 +491,21 @@ function Avatar({ m, size }: { m: TeamMember; size: number }) {
   const tint = roleTint[m.roles[0]];
   const src = m.me ? portrait : m.photo;
   return src ? (
-    <img src={src} alt="" className="shrink-0 rounded-full object-cover object-[50%_22%] ring-2 ring-white" style={{ width: size, height: size }} />
+    <img
+      src={src}
+      alt=""
+      className="shrink-0 rounded-full object-cover object-[50%_22%] ring-2 ring-white"
+      style={{ width: size, height: size }}
+    />
   ) : (
     <span
       className="grid shrink-0 place-items-center rounded-full text-[0.72rem] font-semibold ring-2 ring-white"
-      style={{ width: size, height: size, background: `rgb(${tint} / 0.14)`, color: `rgb(${tint})` }}
+      style={{
+        width: size,
+        height: size,
+        background: `rgb(${tint} / 0.14)`,
+        color: `rgb(${tint})`,
+      }}
     >
       {initials(m.name)}
     </span>
@@ -406,19 +529,37 @@ function MemberCard({ m }: { m: TeamMember }) {
           ))}
         </div>
       </div>
-      {(m.url || m.me) && <ArrowUpRight size={15} className="absolute right-2.5 top-2.5 text-ink/40 transition-colors group-hover:text-signal" aria-hidden />}
+      {(m.url || m.me) && (
+        <ArrowUpRight
+          size={15}
+          className="absolute right-2.5 top-2.5 text-ink/40 transition-colors group-hover:text-signal"
+          aria-hidden
+        />
+      )}
     </>
   );
-  const cls = "group relative flex h-full w-full items-center gap-2.5 px-3 text-left";
+  const cls =
+    "group relative flex h-full w-full items-center gap-2.5 px-3 text-left";
   if (m.me)
     return (
-      <button type="button" className={cls} onClick={() => void goTo("ouverture")} aria-label={`${m.name} — retour au début du portfolio`}>
+      <button
+        type="button"
+        className={cls}
+        onClick={() => void goTo("ouverture")}
+        aria-label={`${m.name} — retour au début du portfolio`}
+      >
         {body}
       </button>
     );
   if (m.url)
     return (
-      <a href={m.url} target="_blank" rel="noopener noreferrer" className={cls} aria-label={`Portfolio de ${m.name} (nouvel onglet)`}>
+      <a
+        href={m.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cls}
+        aria-label={`Portfolio de ${m.name} (nouvel onglet)`}
+      >
         {body}
       </a>
     );
@@ -427,12 +568,20 @@ function MemberCard({ m }: { m: TeamMember }) {
 
 function TeamDiagram({ T, scale }: { T: TeamLayout; scale: number }) {
   const per = T.cols.length;
-  const slot = (i: number): Rect => ({ x: T.cols[i % per], y: T.rows[Math.floor(i / per)], w: T.cw, h: T.ch });
+  const slot = (i: number): Rect => ({
+    x: T.cols[i % per],
+    y: T.rows[Math.floor(i / per)],
+    w: T.cw,
+    h: T.ch,
+  });
   const members = team.members;
-  const links: Link[] = [elbowV(cxOf(T.root), T.root.y + T.root.h, cxOf(T.main), T.main.y)];
+  const links: Link[] = [
+    elbowV(cxOf(T.root), T.root.y + T.root.h, cxOf(T.main), T.main.y),
+  ];
   members.forEach((_, i) => {
     const r = slot(i);
-    if (i < per) links.push(elbowV(cxOf(T.main), T.main.y + T.main.h, cxOf(r), r.y));
+    if (i < per)
+      links.push(elbowV(cxOf(T.main), T.main.y + T.main.h, cxOf(r), r.y));
     else {
       const above = slot(i - per);
       links.push(elbowV(cxOf(above), above.y + above.h, cxOf(r), r.y));
@@ -440,28 +589,48 @@ function TeamDiagram({ T, scale }: { T: TeamLayout; scale: number }) {
   });
 
   return (
-    <div className="relative" style={{ width: T.W * scale, height: T.H * scale }}>
-      <div className="absolute left-0 top-0 origin-top-left" style={{ width: T.W, height: T.H, transform: `scale(${scale})` }}>
-        <div aria-hidden className="absolute -inset-6 opacity-70" style={DOT_GRID} />
+    <div
+      className="relative"
+      style={{ width: T.W * scale, height: T.H * scale }}
+    >
+      <div
+        className="absolute left-0 top-0 origin-top-left"
+        style={{ width: T.W, height: T.H, transform: `scale(${scale})` }}
+      >
+        <div
+          aria-hidden
+          className="absolute -inset-6 opacity-70"
+          style={DOT_GRID}
+        />
         <LinksLayer links={links} W={T.W} H={T.H} />
 
         <Node r={T.root} delay={0.05} className="!rounded-full">
           <div className="flex h-full items-center gap-3 px-3">
             {team.logo ? (
-              <img src={team.logo} alt="Logo Gama Labs" className="h-8 w-8 shrink-0 rounded-full object-contain" />
+              <img
+                src={team.logo}
+                alt="Logo Gama Labs"
+                className="h-8 w-8 shrink-0 rounded-full object-contain"
+              />
             ) : (
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-[0.7rem] font-semibold text-white">GL</span>
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-[0.7rem] font-semibold text-white">
+                GL
+              </span>
             )}
             <p className="truncate whitespace-nowrap text-[0.9rem] font-medium">
               Startup : <span className="accent">{team.name}</span>
             </p>
-            <span className="ml-auto whitespace-nowrap text-[0.7rem] text-mute">{members.length} membres</span>
+            <span className="ml-auto whitespace-nowrap text-[0.7rem] text-mute">
+              {members.length} membres
+            </span>
           </div>
         </Node>
 
         <Node r={T.main} delay={0.2}>
           <div className="p-4">
-            <p className="text-[1.02rem] font-semibold tracking-[-0.02em]">L'équipe {team.name}</p>
+            <p className="text-[1.02rem] font-semibold tracking-[-0.02em]">
+              L'équipe {team.name}
+            </p>
             <p className="mt-0.5 text-[0.8rem] text-mute">{team.tagline}</p>
             <div className="mt-4 flex items-center gap-3">
               <Badge tint="242 107 29">Équipe</Badge>
@@ -510,21 +679,31 @@ export function SkillsReel() {
   const panelW = wide ? Math.min(720, vp.w - gutter * 2) : vp.w - gutter * 2;
   const top = wide ? 170 : 120;
   const bottom = wide ? 40 : 100; // barre d'onglets sur mobile
-  const scale = Math.max(0.55, Math.min(1.1, panelW / L.W, (vp.h - top - bottom) / L.H));
+  const scale = Math.max(
+    0.55,
+    Math.min(1.1, panelW / L.W, (vp.h - top - bottom) / L.H),
+  );
   const T = wide ? TEAM_WIDE : TEAM_NARROW;
-  const teamScale = Math.max(0.55, Math.min(1.1, panelW / T.W, (vp.h - top - bottom) / T.H));
+  const teamScale = Math.max(
+    0.55,
+    Math.min(1.1, panelW / T.W, (vp.h - top - bottom) / T.H),
+  );
 
   useLayoutEffect(() => {
     const el = track.current;
     if (!el) return;
-    const measure = () => setDistance(Math.max(0, el.scrollWidth - window.innerWidth));
+    const measure = () =>
+      setDistance(Math.max(0, el.scrollWidth - window.innerWidth));
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     measure();
     return () => ro.disconnect();
   }, []);
 
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
   const x = useTransform(scrollYProgress, [0, 1], [0, -distance]);
 
   return (
@@ -547,17 +726,30 @@ export function SkillsReel() {
         <motion.div
           ref={track}
           className="mt-6 flex w-max items-start will-change-transform"
-          style={{ x: motionOK ? x : 0, gap: wide ? 80 : 32, paddingInline: gutter }}
+          style={{
+            x: motionOK ? x : 0,
+            gap: wide ? 80 : 32,
+            paddingInline: gutter,
+          }}
         >
           {skillPanels.map((p) => (
-            <section key={p.id} aria-label={p.label} className="shrink-0" style={{ width: panelW }}>
+            <section
+              key={p.id}
+              aria-label={p.label}
+              className="shrink-0"
+              style={{ width: panelW }}
+            >
               <p className="meta mb-5 text-mute">{p.label}</p>
               <div className="flex justify-center">
                 <Diagram panel={p} L={L} scale={scale} />
               </div>
             </section>
           ))}
-          <section aria-label="Équipe — Gama Labs" className="shrink-0" style={{ width: panelW }}>
+          <section
+            aria-label="Équipe Gama Labs"
+            className="shrink-0"
+            style={{ width: panelW }}
+          >
             <p className="meta mb-5 text-mute">Équipe — {team.name}</p>
             <div className="flex justify-center">
               <TeamDiagram T={T} scale={teamScale} />
