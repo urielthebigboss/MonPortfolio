@@ -1,6 +1,8 @@
 import type { Project } from "../types/content";
 import bibliothequeCover from "../assets/projects/ma-bibliotheque-upb/cover.webp";
 import eagleVisionCover from "../assets/projects/eagle-vision/cover.webp";
+import terraCover from "../assets/projects/terra/A1.png";
+import spt2aCover from "../assets/projects/spt2a/Spt2A.png";
 
 /* ════════════════════════════════════════════════════════════
    RÉALISATIONS
@@ -29,7 +31,7 @@ export const projects: Project[] = [
 Grâce à une interface simple, les utilisateurs effectuent des recherches rapides et accèdent directement aux contenus dont ils ont besoin. La solution améliore la gestion documentaire de l'université et accompagne sa transition vers un environnement académique plus numérique et plus accessible.`,
     category: "software",
     year: "2025",
-    role: null, // À compléter : votre rôle exact sur ce projet
+    role: "UI/UX Designer & Developpeur", // À compléter : votre rôle exact sur ce projet
     context: "Gama Labs",
     technologies: ["Figma", "React", "Supabase"],
     cover: {
@@ -44,6 +46,58 @@ Grâce à une interface simple, les utilisateurs effectuent des recherches rapid
     published: true,
     order: 1,
   },
+
+  {
+    id: "spt2a",
+    title: "Spt2a",
+    pitch:
+      "Le site officiel de la Société de Production et de Transformation Animale et Agricole.",
+    description: `La Société de Production et de Transformation Animale et Agricole, visant à améliorer la communication et la visibilité de l'entreprise. Le site offre des informations détaillées sur les services, les produits et les initiatives de l'entreprise, tout en facilitant l'interaction avec les clients et partenaires.
+
+Grâce à une interface simple, les utilisateurs effectuent des recherches rapides et accèdent directement aux contenus dont ils ont besoin. La solution améliore la gestion documentaire de l'université et accompagne sa transition vers un environnement académique plus numérique et plus accessible.`,
+    category: "software",
+    year: "2026",
+    role: "UI/UX Designer & Developpeur", // À compléter : votre rôle exact sur ce projet
+    context: "",
+    technologies: ["Figma", "React"],
+    cover: {
+      src: spt2aCover,
+      alt: "",
+      position: "0% 50%",
+    },
+    gallery: [],
+    demoUrl: "https://spt2a.com/",
+    repoUrl: null,
+    status: "publie",
+    published: true,
+    order: 1,
+  },
+
+  {
+    id: "terra",
+    title: "Terra",
+    pitch: "Suiveillez les paramètres nutritiofs des sols.",
+    description: `Terra est une application & Iot qui permet de surveiller en temps réel l'humidité et le complexe NPK des sols, facilitant ainsi une gestion agricole plus efficace et durable.
+
+En intégrant des capteurs IoT et une interface utilisateur intuitive, Terra fournit aux agriculteurs des données précises pour optimiser l'irrigation et la fertilisation, contribuant à une meilleure productivité et à la préservation des ressources naturelles.`,
+    category: "iot",
+    year: "Soutenance 2026",
+    role: "Concepteur & développeur", // À compléter : votre rôle exact sur ce projet
+    context: "",
+    technologies: ["React", "Supabase", "Arduino"],
+    cover: {
+      src: terraCover,
+      alt: "Vue d'ensemble de l'application Terra : affichage des données des capteurs IoT",
+      position: "0% 50%",
+    },
+    gallery: [],
+    demoUrl: "https://upbstudents-labibliotheque.com/",
+    repoUrl: null,
+    status: "publie",
+    published: true,
+    order: 1,
+  },
+
   {
     id: "eagle-vision",
     title: "Eagle Vision",
@@ -53,11 +107,18 @@ Grâce à une interface simple, les utilisateurs effectuent des recherches rapid
 
 En combinant l'intelligence artificielle et la technologie des drones, le projet cherche à apporter une réponse moderne, autonome et réactive aux défis de sécurité à grande échelle en Côte d'Ivoire.`,
     category: "data",
-    year: null,
-    role: null,
+    year: "Ciade Avril 2026",
+    role: "Développeur IA & Backend", // À compléter : votre rôle exact sur ce projet
     context: "",
     // À compléter : technologies réellement utilisées.
-    technologies: [],
+    technologies: [
+      "Python",
+      "TensorFlow",
+      "React",
+      "PostgreSQL",
+      "Yolov8",
+      "DeepSort",
+    ],
     cover: {
       src: eagleVisionCover,
       alt: "Vue aérienne par drone d'un parc de stationnement : chaque camion et voiture est encadré et étiqueté par le modèle de détection, avec son score de confiance",
@@ -69,47 +130,6 @@ En combinant l'intelligence artificielle et la technologie des drones, le projet
     published: true,
     order: 2,
     confidential: true,
-  },
-
-  /* ── Brouillons hérités de l'ancien site ──────────────────
-     Ces deux entrées utilisaient des images Unsplash et des
-     dates antérieures à Gama Labs : elles ressemblent à des
-     exemples de template. Elles restent invisibles
-     (published: false). Complétez-les ou supprimez-les. */
-  {
-    id: "fitline",
-    title: "Fitline Fitness",
-    pitch: "Application mobile de fitness avec personnalisation des séances.",
-    description:
-      "Application mobile de fitness qui personnalise les entraînements.",
-    category: "software",
-    year: null,
-    role: null,
-    technologies: [],
-    cover: null,
-    gallery: [],
-    demoUrl: null,
-    repoUrl: null,
-    status: "publie",
-    published: false,
-    order: 90,
-  },
-  {
-    id: "crypto-dashboard",
-    title: "Crypto Dashboard",
-    pitch: "Tableau de bord d'analyse et d'alertes sur les crypto-actifs.",
-    description: "Dashboard d'analyse avec alertes intelligentes.",
-    category: "data",
-    year: null,
-    role: null,
-    technologies: [],
-    cover: null,
-    gallery: [],
-    demoUrl: null,
-    repoUrl: null,
-    status: "a-venir",
-    published: false,
-    order: 91,
   },
 ];
 

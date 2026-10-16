@@ -58,11 +58,10 @@ export const journey: JourneyEntry[] = [
     kind: "experience",
     title: "Fondateur",
     organization: "SYS",
-    start: null,
+    start: "2026",
     end: null,
     status: null,
-    summary:
-      "Environnement de réalisation de projets technologiques",
+    summary: "Environnement de réalisation de projets technologiques",
     details: [],
   },
   {
@@ -85,7 +84,7 @@ export const journey: JourneyEntry[] = [
     organization: "Université Polytechnique de Bingerville",
     start: "2023",
     end: "2026",
-    status: null,
+    status: "termine",
     summary:
       "Licence en informatique et gestion, avec une orientation en génie logiciel.",
     details: [
@@ -93,6 +92,17 @@ export const journey: JourneyEntry[] = [
       "Développement web et backend",
       "Gestion de projet",
     ],
+  },
+  {
+    id: "elite-industrie-ci",
+    kind: "experience",
+    title: "Stagiaire développeur",
+    organization: "Elite Industrie-Ci",
+    start: "Juin. 2026",
+    end: " Sept. 2026",
+    status: "termine",
+    summary: "Environnement de réalisation de projets technologiques",
+    details: [],
   },
   {
     id: "bac",
