@@ -1,14 +1,19 @@
 /* ════════════════════════════════════════════════════════════
    ÉQUIPE — Gama Labs (dernier panneau du défilement « Compétences »)
    ------------------------------------------------------------
-   • Logo : déposez-le dans src/assets/team/ puis importez-le :
-       import gamaLogo from "../assets/team/gama-labs.svg";
-     et remplacez `logo: null` par `logo: gamaLogo`.
+   • Logo : src/assets/team/gama-labs.png (déclaré dans src/lib/orgLogos.ts,
+     qui l'affiche aussi partout où « Gama Labs » est cité).
    • url : lien vers le portfolio du membre (https://…).
      Tant qu'il vaut null, la carte n'est pas cliquable.
    • photo : même principe que le logo (null = initiales).
    • me: true → la carte ramène au début de ce portfolio.
    ════════════════════════════════════════════════════════════ */
+
+import { GAMA_LABS_LOGO } from "../lib/orgLogos";
+import calebPhoto from "../assets/team/caleb.webp";
+import yaoPhoto from "../assets/team/yao.webp";
+import sergePhoto from "../assets/team/serge.webp";
+import kofiPhoto from "../assets/team/kofi.webp";
 
 export type TeamRole = "UI/UX" | "IA" | "Backend" | "Frontend" | "Communication";
 
@@ -24,16 +29,16 @@ export type TeamMember = {
 
 export const team = {
   name: "Gama Labs",
-  logo: null as string | null,
+  logo: GAMA_LABS_LOGO as string | null,
   /** Sous-titre de la carte principale. */
   tagline: "Startup tech, cofondée en 2025",
   members: [
     { id: "uriel", name: "Uriel Dakaud", handle: "@sys", roles: ["UI/UX", "Backend"], url: null, me: true },
-    { id: "caleb", name: "Deroux Caleb", roles: ["UI/UX", "IA"], url: null },
+    { id: "caleb", name: "Deroux Caleb", roles: ["UI/UX", "IA"], url: null, photo: calebPhoto },
     { id: "grace", name: "Grace Divine", roles: ["Backend"], url: null },
-    { id: "serge", name: "Ahoussi Serge", roles: ["Frontend",], url: null },
-    { id: "kofi", name: "Baidoo Kofi", roles: ["Frontend"], url: null },
-    { id: "yao", name: "Yao Eliakim", handle: "@dev", roles: ["Frontend"], url: null },
+    { id: "serge", name: "Ahoussi Serge", roles: ["Frontend",], url: null, photo: sergePhoto },
+    { id: "kofi", name: "Baidoo Kofi", roles: ["Frontend"], url: null, photo: kofiPhoto },
+    { id: "yao", name: "Yao Eliakim", handle: "@dev", roles: ["Frontend"], url: null, photo: yaoPhoto },
   ] satisfies TeamMember[] as TeamMember[],
 };
 

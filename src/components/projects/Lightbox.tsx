@@ -6,6 +6,7 @@ import { gallery, cdn } from "../../data/gallery";
 import { sound } from "../../lib/sound";
 import { useMotionOK } from "../../lib/hooks";
 import { ease } from "../../lib/motion";
+import { OrgText } from "../ui/OrgText";
 
 /** Durée d'un plan en lecture automatique (ms). */
 const SHOT = 5200;
@@ -132,7 +133,7 @@ export function Lightbox({
               >
                 {item.title}
                 <span className="ml-3 text-[0.85em] font-normal text-white/65">
-                  {item.tag}
+                  <OrgText text={item.tag} invert />
                   {item.year ? ` · ${item.year}` : ""}
                 </span>
               </motion.p>

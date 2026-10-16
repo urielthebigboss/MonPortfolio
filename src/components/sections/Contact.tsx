@@ -139,7 +139,7 @@ export function Contact() {
           as="h2"
           id="contact-title"
           headingProps={{ "data-chapter-heading": true, tabIndex: -1 }}
-          className="display max-md:font-normal"
+          className="h1 max-md:font-normal"
           lines={[["Écrivons"], [{ text: "la suite.", className: "accent" }]]}
         />
 

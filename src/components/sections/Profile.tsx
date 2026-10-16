@@ -7,6 +7,7 @@ import { goTo } from "../../lib/film";
 import { useHoverSound, useMotionOK } from "../../lib/hooks";
 import { ease } from "../../lib/motion";
 import { SkillsReel } from "../profile/SkillsGraph";
+import { OrgText } from "../ui/OrgText";
 
 /** Rôles actuels, tirés du parcours (une seule source de vérité). */
 const ROLES = ["gama-labs", "sys", "spt2a", "upb-pole-tech"]
@@ -41,7 +42,7 @@ function RoleRow({
           <span className="h3 block transition-colors duration-300 group-hover:text-signal">
             {title}
           </span>
-          <span className="mt-1 block text-[0.95rem] text-mute">{org}</span>
+          <span className="mt-1 block text-[0.95rem] text-mute"><OrgText text={org} /></span>
         </span>
         <ArrowRight
           size={20}
@@ -68,7 +69,7 @@ export function Profile() {
         />
 
         <ScrubText
-          className="lead mt-8 max-w-[24ch] md:mt-20 lg:ml-[16.66%] [word-spacing:2px] leading-relaxed"
+          className="lead mt-8 max-w-[24ch] md:mt-20 lg:mx-[16.66%] lg:max-w-none [word-spacing:2px] leading-relaxed"
           highlight={["capteur", "décision", "3D"]}
           text="Formé en MIAGE et orienté génie logiciel, je travaille là où les disciplines se rencontrent : une application connectée, une donnée qui devient décision, une idée qui prend forme en 3D."
         />

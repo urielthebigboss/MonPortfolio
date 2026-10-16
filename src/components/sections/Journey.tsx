@@ -7,6 +7,7 @@ import type { JourneyEntry, JourneyKind } from "../../types/content";
 import { sound } from "../../lib/sound";
 import { useIsDesktop, useMotionOK } from "../../lib/hooks";
 import { ease, spring } from "../../lib/motion";
+import { OrgText } from "../ui/OrgText";
 
 type Filter = JourneyKind | "all";
 const FILTERS: { id: Filter; label: string }[] = [
@@ -74,7 +75,11 @@ function Entry({
           )}
         </div>
         <h3 className="h3 mt-3 max-w-[28ch]">{entry.title}</h3>
-        {entry.organization && <p className="mt-1.5 text-[1.02rem] text-mute">{entry.organization}</p>}
+        {entry.organization && (
+          <p className="mt-1.5 text-[1.02rem] text-mute">
+            <OrgText text={entry.organization} />
+          </p>
+        )}
         <p className="mt-4 max-w-[52ch]">{entry.summary}</p>
 
         {entry.details.length > 0 && (
@@ -160,7 +165,7 @@ function ActiveMarker({ entry, index, total }: { entry: JourneyEntry; index: num
             {period ? ` · ${period}` : ""}
           </p>
           <p className="mt-3 max-w-[20ch] text-2xl font-medium leading-tight tracking-[-0.03em] text-mute">
-            {entry.organization ?? entry.title}
+            <OrgText text={entry.organization ?? entry.title} />
           </p>
         </motion.div>
       </AnimatePresence>

@@ -12,6 +12,7 @@ import { sound } from "../../lib/sound";
 import { useMotionOK } from "../../lib/hooks";
 import { ease, spring } from "../../lib/motion";
 import { TechList } from "../ui/TechList";
+import { OrgText } from "../ui/OrgText";
 
 /** Même cadre (16:10) pour toutes les réalisations ; seul le côté alterne. */
 const LAYOUTS = [
@@ -70,7 +71,9 @@ function ProjectEntry({
             {statusLabel[project.status]}
           </span>
           {meta.map((m) => (
-            <span key={m}>{m}</span>
+            <span key={m}>
+              <OrgText text={m as string} />
+            </span>
           ))}
         </div>
         <h3 className="h2 mt-5">{project.title}</h3>

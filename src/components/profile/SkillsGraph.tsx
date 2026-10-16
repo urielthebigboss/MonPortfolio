@@ -12,6 +12,7 @@ import { ease } from "../../lib/motion";
 import { team, roleTint, type TeamMember } from "../../data/team";
 import { goTo } from "../../lib/film";
 import portrait from "../../assets/images/portrait-hd.jpeg";
+import { OrgText } from "../ui/OrgText";
 
 /*
  * Compétences en défilement horizontal : la section reste à l'écran
@@ -138,7 +139,9 @@ function CardBody({ card }: { card: SkillCard }) {
           {card.title}
         </p>
         {card.sub && (
-          <p className="mt-0.5 truncate text-[0.74rem] text-mute">{card.sub}</p>
+          <p className="mt-0.5 truncate text-[0.74rem] text-mute">
+            <OrgText text={card.sub} />
+          </p>
         )}
         {(card.badge || card.tools?.length) && (
           <div className="mt-1.5 flex min-w-0 items-center gap-1 overflow-hidden">
@@ -750,7 +753,7 @@ export function SkillsReel() {
             className="shrink-0"
             style={{ width: panelW }}
           >
-            <p className="meta mb-5 text-mute">Équipe — {team.name}</p>
+            <p className="meta mb-5 text-mute">Équipe {team.name}</p>
             <div className="flex justify-center">
               <TeamDiagram T={T} scale={teamScale} />
             </div>

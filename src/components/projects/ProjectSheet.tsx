@@ -10,6 +10,7 @@ import { TypographicCover } from "./Cover";
 import { ease } from "../../lib/motion";
 import { sound } from "../../lib/sound";
 import { TechList } from "../ui/TechList";
+import { OrgText } from "../ui/OrgText";
 
 /**
  * Fiche détaillée : monte depuis le bas comme un plan qui pousse
@@ -122,7 +123,9 @@ export function ProjectSheet({
                   {facts.map((f) => (
                     <div key={f.label} className="grid grid-cols-[7rem_1fr] gap-4 py-3.5">
                       <dt className="meta pt-1 text-mute">{f.label}</dt>
-                      <dd>{f.value}</dd>
+                      <dd>
+                        <OrgText text={f.value} />
+                      </dd>
                     </div>
                   ))}
                 </dl>
