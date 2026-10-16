@@ -3,6 +3,7 @@ import bibliothequeCover from "../assets/projects/ma-bibliotheque-upb/cover.webp
 import eagleVisionCover from "../assets/projects/eagle-vision/cover.webp";
 import terraCover from "../assets/projects/terra/A1.png";
 import spt2aCover from "../assets/projects/spt2a/Spt2A.png";
+import sgcCover from "../assets/projects/sgc/sgc.png";
 
 /* ════════════════════════════════════════════════════════════
    RÉALISATIONS
@@ -21,6 +22,32 @@ import spt2aCover from "../assets/projects/spt2a/Spt2A.png";
    ════════════════════════════════════════════════════════════ */
 
 export const projects: Project[] = [
+  {
+    id: "Serious-Games-Catalogue",
+    title: "Serious Games Catalogue",
+    pitch:
+      "La plateforme de gestion et de consultation de jeux éducatifs / Serous Games Society.",
+    description: `Le Serious Games Catalogue (SGC) est une plateforme web soutenu par la communauté Serous Games Society (SGS) conçue pour centraliser et faciliter l'accès à une variété de jeux éducatifs aux enseignants aux étudiants et développeurs de jeux. Elle permet aux utilisateurs de rechercher, filtrer et découvrir des jeux sérieux adaptés à différents contextes d'apprentissage.
+Grâce à une interface intuitive, les enseignants et les étudiants peuvent explorer des jeux éducatifs qui favorisent l'apprentissage interactif et l'engagement. La plateforme vise à promouvoir l'utilisation des serious games dans l'éducation, en offrant un espace où les ressources sont organisées et facilement accessibles. Elle fait l'effet d"une puublication dans le domaine des serious games, en mettant en avant les meilleures pratiques et les jeux les plus pertinents pour l'apprentissage.`,
+    category: "software",
+    year: "2026",
+    role: "UI/UX Designer & Developpeur", // À compléter : votre rôle exact sur ce projet
+    context: "Gama Labs",
+    technologies: ["Figma", "HTML", "CSS", "JavaScript", "Render", "Supabase"],
+    cover: {
+      src: sgcCover,
+      alt: "Accueil du Catalogue de Jeux Éducatifs : barre de recherche, catégories de jeux (éducatifs, de simulation, de jeu de rôle) et derniers jeux ajoutés",
+      position: "0% 50%",
+    },
+    gallery: [],
+    demoUrl: "",
+    repoUrl: null,
+    status: "en-cours",
+    published: true,
+    confidential: true,
+    order: 1,
+  },
+
   {
     id: "ma-bibliotheque-upb",
     title: "Ma Bibliothèque",
