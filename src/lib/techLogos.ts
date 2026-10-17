@@ -16,8 +16,13 @@ import aftereffects from "devicon/icons/aftereffects/aftereffects-original.svg";
 import blender from "devicon/icons/blender/blender-original.svg";
 import framermotion from "devicon/icons/framermotion/framermotion-original.svg";
 import redis from "devicon/icons/redis/redis-original.svg";
+import html5 from "devicon/icons/html5/html5-original.svg";
+import css3 from "devicon/icons/css3/css3-original.svg";
+import arduino from "devicon/icons/arduino/arduino-original.svg";
+import sql from "../assets/logos/sql.svg";
+import machineLearning from "../assets/logos/machine-learning.svg";
 import powerbi from "../assets/logos/powerbi.svg";
-import { siUml } from "simple-icons";
+import { siRender, siUml } from "simple-icons";
 
 /** Logo Simple Icons (monochrome officiel) converti en image, couleur de marque. */
 const simpleIcon = (icon: { path: string; hex: string }) =>
@@ -26,8 +31,9 @@ const simpleIcon = (icon: { path: string; hex: string }) =>
 /*
  * Logos officiels des technologies (Devicon, embarqués localement).
  * La clé est le nom tel qu'écrit dans src/data (insensible à la casse).
- * Une technologie absente de cette table s'affiche en texte
- * (ex. « Machine Learning », « SQL »).
+ * Une technologie absente de cette table s'affiche avec un sigle.
+ * SQL et Machine Learning n'ont pas de logo officiel : ils utilisent
+ * une icône générique (src/assets/logos/).
  * Pour en ajouter une : importez son SVG depuis devicon/icons/<nom>/
  * et ajoutez une entrée ici.
  */
@@ -52,6 +58,14 @@ export const LOGOS: Record<string, string> = {
   redis,
   "power bi": powerbi,
   uml: simpleIcon(siUml),
+  html: html5,
+  html5,
+  css: css3,
+  css3,
+  arduino,
+  render: simpleIcon(siRender),
+  sql,
+  "machine learning": machineLearning,
 };
 
 export const techLogo = (name: string) => LOGOS[name.trim().toLowerCase()];
